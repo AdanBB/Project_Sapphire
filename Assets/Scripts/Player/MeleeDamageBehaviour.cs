@@ -29,16 +29,23 @@ public class MeleeDamageBehaviour : MonoBehaviour {
             Debug.Log("detecta al enemigo");
             if (myAnimator.GetBool("IsAttacking"))
             {
-                if (!other.gameObject.GetComponent<EnemyAI>().lastStantBool)
+                /*if (!other.gameObject.GetComponent<EnemyAI>().lastStantBool)
                 {
-                    other.gameObject.SendMessage("ApplyDamage", damage);
+					other.gameObject.GetComponent<EnemyAi2> ().AdDamage (10);
 
                     Debug.Log("hace daño al enemigo");
                 }
                 else if (other.gameObject.GetComponent<EnemyAI>().lastStantBool && other.gameObject.GetComponent<EnemyAI>().lastStatStatus == weaponColor)
                 {
-                    other.gameObject.SendMessage("ApplyDamage", damage);
-                }
+					other.gameObject.GetComponent<EnemyAi2> ().AdDamage (10);
+                }*/
+				if (other.gameObject.GetComponent<EnemyAi2>())
+				{
+					other.gameObject.GetComponent<EnemyAi2> ().AdDamage ((int)damage);
+
+					Debug.Log("hace daño al enemigo");
+				}
+
             }
         }
     }
