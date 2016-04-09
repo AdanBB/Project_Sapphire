@@ -42,6 +42,8 @@ public class EnemyAi2 : MonoBehaviour {
 		health -= Damage;
 
 		if (health <= 0) {
+
+
 			Destroy (this.gameObject);
 		}
 	
