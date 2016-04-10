@@ -6,6 +6,7 @@ public class MeleeDamageBehaviour : MonoBehaviour {
     public int weaponColor;
     public PlayerAI playerAI;
 
+
     public Animator myAnimator;
 
     void Awake()
@@ -13,7 +14,8 @@ public class MeleeDamageBehaviour : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-        weaponColor = playerAI.weaponColor;        
+        weaponColor = playerAI.weaponColor;   
+
     }
 	
 	// Update is called once per frame
@@ -39,11 +41,10 @@ public class MeleeDamageBehaviour : MonoBehaviour {
                 {
 					other.gameObject.GetComponent<EnemyAi2> ().AdDamage (10);
                 }*/
-				if (other.gameObject.GetComponent<EnemyAi2>())
-				{
-					other.gameObject.GetComponent<EnemyAi2> ().AdDamage ((int)damage);
+				if (other.gameObject.GetComponent<EnemyAi2> ()) {
+					other.gameObject.GetComponent<EnemyAi2> ().AdDamage ((int)damage, weaponColor);
 
-					Debug.Log("hace daño al enemigo");
+					Debug.Log ("hace daño al enemigo");
 				}
 
             }

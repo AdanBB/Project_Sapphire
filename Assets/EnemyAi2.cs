@@ -6,6 +6,12 @@ public class EnemyAi2 : MonoBehaviour {
 	public int health;
 
 
+	public bool lastHit;
+
+	public Material rend;
+	public Color blue;
+	public Color green;
+	public int random;
     private GameObject player;
 	private NavMeshAgent agent;
 
@@ -14,6 +20,7 @@ public class EnemyAi2 : MonoBehaviour {
 
         player = GameObject.FindGameObjectWithTag("Player");
 		agent = GetComponent<NavMeshAgent> ();
+		random = Random.Range (1, 3);
 
     }
 
@@ -36,16 +43,36 @@ public class EnemyAi2 : MonoBehaviour {
 		agent.SetDestination (player.transform.position);
 
     }
-	public void AdDamage(int Damage){
+	public void AdDamage(int Damage, int color){
 	
 	
-		health -= Damage;
-
-		if (health <= 0) {
 
 
-			Destroy (this.gameObject);
+		if ((!lastHit) && (health >= 10)) {
+		
+			Debug.Log ("tocado");
+			Debug.Log (Damage);
+			health = health - Damage;
+		
 		}
+
+		if ((health <= 10) && (!lastHit)) {
+
+
+			lastHit = !lastHit;
+
+
+		}if (lastHit) {
+		
+			if (random == color) {
+			
+				Destroy (this.gameObject);
+			
+			}
+		
+		}
+
+
 	
 
 
