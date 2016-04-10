@@ -33,7 +33,7 @@ public class playerController : MonoBehaviour
             //gravity = 0;
             isInvulnerable = !isInvulnerable;
         }
-        if (grounded == false)
+        if (!grounded)
         {
             // Calculate how fast we should be moving
             Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -55,7 +55,7 @@ public class playerController : MonoBehaviour
             velocityChange.y = 0;
             rb.AddForce(velocityChange, ForceMode.VelocityChange);
         }
-        if (grounded)
+        else if (grounded)
         {
             // Calculate how fast we should be moving
             Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
