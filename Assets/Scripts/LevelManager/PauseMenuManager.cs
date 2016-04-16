@@ -13,19 +13,19 @@ public class PauseMenuManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            player.SetActive(false);
+            
             Time.timeScale = 0;
-            playerAI.enabled = false;
+            
             pauseMenu.SetActive(true);
             
         }
 	}
     public void ResumeBotton()
     {
-        player.SetActive(true);
-        playerAI.enabled = true;
+       
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
     }

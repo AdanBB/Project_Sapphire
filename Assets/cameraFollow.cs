@@ -4,34 +4,59 @@ using System.Collections;
 public class cameraFollow : MonoBehaviour {
 
 	private GameObject camera;
-
-	public Quaternion rotation;
+	private GameObject player;
 
 	public Vector3 rotationEuler;
+
+	public Vector3 playerRotation;
+
+	public bool isRotate;
 
 	// Use this for initialization
 
 	void Start () {
 
 		camera = GameObject.FindGameObjectWithTag ("Camera");
+
+		player = GameObject.FindGameObjectWithTag ("Player");
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-		//this.transform.Rotate (new Vector3 (0, camera.transform.localEulerAngles.y, 0));
 
-		rotation = camera.transform.rotation;
+		playerRotation = player.transform.rotation.eulerAngles;
 
 		rotationEuler = camera.transform.rotation.eulerAngles;
 
-
 		transform.rotation = Quaternion.Euler (0, Mathf.Abs (rotationEuler.y), 0 );
 
-		//this.transform.rotation.y = rotationEuler.y;
 
-		//transform.rotation.eulerAngles = rotationEuler;
+		//if((playerRotation <= rotationEuler+10)&&(playerRotation <= rotationEuler+10))
 
-		//rotation = (Vector3)camera.transform.rotation;
+		if (rotationEuler.y != playerRotation.y) {
+		
+			isRotate = false;
+		
+		} else
+			isRotate = true;
+
+		/*if (rotationEuler.y <= playerRotation.y + 20f) {
+			
+			Debug.Log ("true");
+			isRotate = true;
+
+		} else if (rotationEuler.y >= playerRotation.y + 340f) {
+
+			Debug.Log ("true");
+			isRotate = true;
+
+		} else {
+		
+			isRotate = false;
+			Debug.Log("false");
+		}
+		*/
+			
 	}
 }
