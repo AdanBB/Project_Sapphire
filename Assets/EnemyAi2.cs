@@ -22,7 +22,8 @@ public class EnemyAi2 : MonoBehaviour {
 	private float counter;
 	private float counter2;
 	private bool attack;
-	private float range;
+
+	public  float range;
 	public float detectionRange;
 	public float distanceAttack;
 	private SphereCollider detectionCollider;
@@ -33,7 +34,7 @@ public class EnemyAi2 : MonoBehaviour {
 		agent = GetComponent<NavMeshAgent> ();
 		random = Random.Range (1, 3);
 		detectionCollider = GetComponentInChildren<SphereCollider> ();
-		treeBody = transform.GetChild (1).gameObject;
+		treeBody = transform.GetChild (2).gameObject;
 
     }
 
@@ -128,6 +129,7 @@ public class EnemyAi2 : MonoBehaviour {
 		}
 	}
 	public void Attack(){
+
 
 		Debug.Log ("te atacoo");
 		player.GetComponent<CharacterStats> ().ApplyDamage ((float)damage);
