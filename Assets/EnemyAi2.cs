@@ -8,6 +8,8 @@ public class EnemyAi2 : MonoBehaviour {
 
 	private bool lastHit;
 	private float lastHitCounter;
+	public float velocity;
+
 
 	public Color normal;
 	public Color blue;
@@ -27,6 +29,9 @@ public class EnemyAi2 : MonoBehaviour {
 	public float detectionRange;
 	public float distanceAttack;
 	private SphereCollider detectionCollider;
+
+
+	private Animator anim;
 	// Use this for initialization
     void Awake () {
 
@@ -35,6 +40,7 @@ public class EnemyAi2 : MonoBehaviour {
 		random = Random.Range (1, 3);
 		detectionCollider = GetComponentInChildren<SphereCollider> ();
 		treeBody = transform.GetChild (2).gameObject;
+		anim = GetComponent<Animator> ();
 
     }
 
@@ -60,6 +66,7 @@ public class EnemyAi2 : MonoBehaviour {
 		}
 		if (lastHit) {
 
+			anim.SetBool ("IsLastHit", true);
 			lastHitCounter += Time.deltaTime;
 			if (lastHitCounter >= 3) {
 				treeBody.GetComponent<Renderer> ().material.color = normal;
@@ -70,7 +77,17 @@ public class EnemyAi2 : MonoBehaviour {
 
 			}
 
+		}else anim.SetBool ("IsLastHit", false);
+
+		velocity = agent.velocity.magnitude;
+		if (Vector3.Distance (agent.destination, this.transform.position) <= 0.40f) {
+		
+			anim.SetBool ("IsMoving", false);
+
+		
 		}
+	
+
 	}
 
 
@@ -80,16 +97,17 @@ public class EnemyAi2 : MonoBehaviour {
 			Debug.Log ("now");
 			transform.LookAt(new Vector3 (player.transform.position.x, transform.position.y , player.transform.position.z));
 			agent.SetDestination (player.transform.position);
-		
+			anim.SetBool ("IsMoving", true);
 		
 		}
+
 
 		range = Vector3.Distance (this.transform.position, player.transform.position);
 
 		if ((range <= distanceAttack)&&(!attack) && (!lastHit)) {
 		
 			Attack ();
-		
+
 		}
 
     }
