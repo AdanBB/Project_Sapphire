@@ -80,7 +80,7 @@ public class EnemyAi2 : MonoBehaviour {
 		}else anim.SetBool ("IsLastHit", false);
 
 		velocity = agent.velocity.magnitude;
-		if (Vector3.Distance (agent.destination, this.transform.position) <= 0.40f) {
+		if (Vector3.Distance (agent.destination, this.transform.position) <= 1.40f) {
 		
 			anim.SetBool ("IsMoving", false);
 
@@ -104,11 +104,12 @@ public class EnemyAi2 : MonoBehaviour {
 
 		range = Vector3.Distance (this.transform.position, player.transform.position);
 
-		if ((range <= distanceAttack)&&(!attack) && (!lastHit)) {
+		if ((range <= distanceAttack) && (!attack) && (!lastHit)) {
 		
 			Attack ();
 
-		}
+		} else
+			anim.SetBool ("IsAttack", false);
 
     }
 	public void AdDamage(int Damage, int color){
@@ -152,6 +153,8 @@ public class EnemyAi2 : MonoBehaviour {
 		Debug.Log ("te atacoo");
 		player.GetComponent<CharacterStats> ().ApplyDamage ((float)damage);
 		attack = true;
+		anim.SetInteger ("Attack", (int)Random.Range (1, 4));
+		anim.SetBool ("IsAttack", true);
 	
 	}
 }
