@@ -19,6 +19,7 @@ public class playerController : MonoBehaviour
 	private cameraFollow direction;
 	public bool isRotating;
 	private float counterJump;
+	public bool isJumping;
 
 
     void Awake()
@@ -33,7 +34,7 @@ public class playerController : MonoBehaviour
         rb.freezeRotation = true;
         rb.useGravity = false;
         isInvulnerable = false;
-
+		isJumping = false;
     }
 
 	void FixedUpdate(){
@@ -85,10 +86,10 @@ public class playerController : MonoBehaviour
 			// Jump
 		if (canJump && Input.GetButton ("Jump")) {
 
-
-				rb.velocity = new Vector3 (velocity.x, CalculateJumpVerticalSpeed (), velocity.z);
+				Invoke ("Jump", 0.2f);
+				isJumping = true;
 				myAnimator.SetBool ("IsGrounded", false);
-				
+
 		}
 
 	}
@@ -116,11 +117,11 @@ public class playerController : MonoBehaviour
 	}
 	void OnTriggerStay(Collider other) {
 		if (other.tag == "Floor") {
-
-			myAnimator.SetBool ("IsGrounded", true);
-			grounded = true;
-			Debug.Log ("Estoy tocando el suelo");
-
+			if (!isJumping) {
+				myAnimator.SetBool ("IsGrounded", true);
+				grounded = true;
+				Debug.Log ("Estoy tocando el suelo");
+			}
 		}
 
 
@@ -133,6 +134,14 @@ public class playerController : MonoBehaviour
 		// for the character to reach at the apex.
 		return Mathf.Sqrt(2 * jumpHeight * gravity);
 
+	}
+	void Jump(){
+	
+		Vector3 velocity = rb.velocity;
+
+		rb.velocity = new Vector3 (velocity.x, CalculateJumpVerticalSpeed (), velocity.z);
+		isJumping = false;
+	
 	}
 
 	void CalculateDirection(){

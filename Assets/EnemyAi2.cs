@@ -120,7 +120,7 @@ public class EnemyAi2 : MonoBehaviour {
     public void FollowPlayer()
     {
 		if (!lastHit) {
-			Debug.Log ("now");
+	
 			transform.LookAt(new Vector3 (player.transform.position.x, transform.position.y , player.transform.position.z));
 			agent.SetDestination (player.transform.position);
 			anim.SetBool ("IsMoving", true);
@@ -135,14 +135,16 @@ public class EnemyAi2 : MonoBehaviour {
 			Attack ();
 
 		}
+		if (range >= distanceAttack){
+			CancelInvoke ("DamagePlayer");
+
+		}
 
     }
 	public void AdDamage(int Damage, int color){
 
 		if ((!lastHit) && (health >= 10)) {
-		
-			Debug.Log ("tocado");
-			Debug.Log (Damage);
+
 			health = health - Damage;
 		
 		}
@@ -174,9 +176,8 @@ public class EnemyAi2 : MonoBehaviour {
 	}
 	public void Attack(){
 
+		Invoke ("DamagePlayer", 0.5f);
 
-		Debug.Log ("te atacoo");
-		player.GetComponent<CharacterStats> ().ApplyDamage ((float)damage);
 		attack = true;
 		AttackNum = (int)Random.Range (1, 4);
 		anim.SetInteger ("Attack", AttackNum);
@@ -185,5 +186,9 @@ public class EnemyAi2 : MonoBehaviour {
 		counterAnim = 1.3f;
 
 	
+	}
+	public void DamagePlayer(){
+	
+		player.GetComponent<CharacterStats> ().ApplyDamage ((float)damage);
 	}
 }
