@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour
     public Rigidbody rb;
 
     public float speed = 10.0f;
+	private float _speed;
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
     public bool canJump = true;
@@ -20,6 +21,7 @@ public class playerController : MonoBehaviour
 	public bool isRotating;
 	private float counterJump;
 	public bool isJumping;
+	public PlayerAI weapon;
 
 
     void Awake()
@@ -29,7 +31,7 @@ public class playerController : MonoBehaviour
 		myAnimator = transform.parent.GetComponent<Animator>();
 		direction = transform.GetComponent<cameraFollow> ();
 
-
+		_speed = speed;
 		isRotating = false;
         rb.freezeRotation = true;
         rb.useGravity = false;
@@ -39,7 +41,15 @@ public class playerController : MonoBehaviour
 
 	void FixedUpdate(){
 	
+		if (weapon.isAttacking) {
+		
+			speed = 0;
+		
+		} else if (speed == 0){
 
+			speed = _speed;
+		}
+			
 
 		if (Input.GetKeyDown (KeyCode.G)) {
 			//gravity = 0;

@@ -16,7 +16,8 @@ public class PlayerAI : MonoBehaviour
     public int weaponTipe;
     public float fireTime;
     public float _firetime;
-
+	private int attackNum;
+	public bool isAttacking;
     public float range;
 
     public int weaponColor;
@@ -24,10 +25,12 @@ public class PlayerAI : MonoBehaviour
     public Image weaponImage;
     public List<Sprite> weaponTexture;
 
+
     void Start()
     {
         weaponColor = 0;
         _firetime = fireTime;
+		isAttacking = false;
     }
     // Update is called once per frame
     void Update()
@@ -65,10 +68,14 @@ public class PlayerAI : MonoBehaviour
             myRenderer.material.color = weaponColorGreen;
             
         }
-        if (Input.GetButtonDown("Fire1"))
+		if (Input.GetButtonDown("Fire1")&& (!isAttacking))
         {
+			attackNum = (int)UnityEngine.Random.Range (1, 4);
 
+			myAnimator.SetInteger ("Attack", attackNum );
             myAnimator.SetBool("IsAttacking", true);
+			isAttacking = true;
+			Invoke ("FireRestart", 1f);
         }
 
 
@@ -106,4 +113,10 @@ public class PlayerAI : MonoBehaviour
         obj.SetActive(true);
 
     }
+	void FireRestart(){
+	
+		myAnimator.SetBool ("IsAttacking", false);
+		isAttacking = false;
+	
+	}
 }
