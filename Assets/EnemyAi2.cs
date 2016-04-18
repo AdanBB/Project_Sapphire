@@ -30,6 +30,11 @@ public class EnemyAi2 : MonoBehaviour {
 	public float distanceAttack;
 	private SphereCollider detectionCollider;
 
+	private bool isAttacking;
+	private int AttackNum;
+	public float counterAnim;
+	public float _counterAnim;
+
 
 	private Animator anim;
 	// Use this for initialization
@@ -50,10 +55,31 @@ public class EnemyAi2 : MonoBehaviour {
 		counter2 = 1.5f;
 		counter = counter2;
 		detectionCollider.radius = detectionRange;
+
+		isAttacking = false;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (isAttacking) {
+
+			_counterAnim += Time.deltaTime;
+
+			if (_counterAnim >= counterAnim) {
+			
+				anim.SetBool ("IsAttack", false);
+				isAttacking = false;
+				_counterAnim = 0;
+
+			
+			}
+
+		
+		}
+
+
 		if (attack) {
 
 			counter -= Time.deltaTime;
@@ -104,12 +130,11 @@ public class EnemyAi2 : MonoBehaviour {
 
 		range = Vector3.Distance (this.transform.position, player.transform.position);
 
-		if ((range <= distanceAttack) && (!attack) && (!lastHit)) {
+		if ((range <= distanceAttack) && (!attack) && (!lastHit)&&(!isAttacking)) {
 		
 			Attack ();
 
-		} else
-			anim.SetBool ("IsAttack", false);
+		}
 
     }
 	public void AdDamage(int Damage, int color){
@@ -153,8 +178,12 @@ public class EnemyAi2 : MonoBehaviour {
 		Debug.Log ("te atacoo");
 		player.GetComponent<CharacterStats> ().ApplyDamage ((float)damage);
 		attack = true;
-		anim.SetInteger ("Attack", (int)Random.Range (1, 4));
+		AttackNum = (int)Random.Range (1, 4);
+		anim.SetInteger ("Attack", AttackNum);
 		anim.SetBool ("IsAttack", true);
+		isAttacking = true;
+		counterAnim = 1.3f;
+
 	
 	}
 }
