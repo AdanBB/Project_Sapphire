@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour
     private Animator myAnimator;
 	private cameraFollow direction;
 	public bool isRotating;
-
+	private float counterJump;
 
 
     void Awake()
@@ -84,9 +84,13 @@ public class playerController : MonoBehaviour
 
 			// Jump
 		if (canJump && Input.GetButton ("Jump")) {
+
+
 				rb.velocity = new Vector3 (velocity.x, CalculateJumpVerticalSpeed (), velocity.z);
 				myAnimator.SetBool ("IsGrounded", false);
+				
 		}
+
 	}
 
 

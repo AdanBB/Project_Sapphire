@@ -32,8 +32,8 @@ public class EnemyAi2 : MonoBehaviour {
 
 	private bool isAttacking;
 	private int AttackNum;
-	public float counterAnim;
-	public float _counterAnim;
+	private float counterAnim;
+	private float _counterAnim;
 
 
 	private Animator anim;
