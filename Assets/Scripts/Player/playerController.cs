@@ -16,6 +16,7 @@ public class playerController : MonoBehaviour
     public float jumpHeight = 2.0f;
     public bool grounded = false;
     public bool isInvulnerable;
+    public bool _isMoving;
     private Animator myAnimator;
 	private cameraFollow direction;
 	public bool isRotating;
@@ -37,11 +38,12 @@ public class playerController : MonoBehaviour
         rb.useGravity = false;
         isInvulnerable = false;
 		isJumping = false;
+        _isMoving = false;
     }
 
 	void FixedUpdate(){
-	
-		if (weapon.isAttacking) {
+
+        if (weapon.isAttacking) {
 		
 			speed = 0;
 		
@@ -62,8 +64,10 @@ public class playerController : MonoBehaviour
 			targetVelocity *= (speed - 2);
 		if (Input.GetButton ("Vertical")) {
 			myAnimator.SetBool ("IsMoving", true);
+            _isMoving = true;
 		} else {
 			myAnimator.SetBool ("IsMoving", false);
+            _isMoving = false;
 		}
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rb.velocity;
@@ -79,8 +83,10 @@ public class playerController : MonoBehaviour
 			targetVelocity *= speed;
 		if (Input.GetButton ("Vertical") || Input.GetButton ("Horizontal") ) {
 			myAnimator.SetBool ("IsMoving", true);
+            _isMoving = true;
 		} else {
 			myAnimator.SetBool ("IsMoving", false);
+            _isMoving = false;
 		}
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rb.velocity;
@@ -126,7 +132,7 @@ public class playerController : MonoBehaviour
 	
 	}
 	void OnTriggerStay(Collider other) {
-		if (other.tag == "Floor") {
+		if (other.tag == "Floor" || other.tag == "Platform") {
 			if (!isJumping) {
 				myAnimator.SetBool ("IsGrounded", true);
 				grounded = true;
