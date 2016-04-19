@@ -43,6 +43,18 @@ public class playerController : MonoBehaviour
 
 	void FixedUpdate(){
 
+		if (weapon.isAiming) {
+
+			transform.parent.transform.rotation = Quaternion.Euler (0, (direction.rotationEuler.y) %360, 0 );
+			speed = 3;
+		
+		} else if (weapon.isAiming) {
+		
+		
+			speed = _speed;
+		}
+
+
         if (weapon.isAttacking) {
 		
 			speed = 0;

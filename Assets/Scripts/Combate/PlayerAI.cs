@@ -19,6 +19,7 @@ public class PlayerAI : MonoBehaviour
 	private int attackNum;
 	public bool isAttacking;
     public float range;
+	public bool isAiming;
 
     public int weaponColor;
     public Animator myAnimator;
@@ -33,13 +34,11 @@ public class PlayerAI : MonoBehaviour
 	
 		Pivot = GameObject.FindGameObjectWithTag ("Camera").transform.GetChild (0).gameObject;
 
-
-
-	
 	}
 
     void Start()
     {
+		isAiming = false;
         weaponColor = 0;
         _firetime = fireTime;
 		isAttacking = false;
@@ -118,13 +117,17 @@ public class PlayerAI : MonoBehaviour
 
 		if (Input.GetMouseButtonDown (1)) {
 
-
 			Pivot.transform.localPosition = _pivotTransform;
+			myAnimator.SetBool ("Aim",true);
+			isAiming = true;
+
 		}
 		if (Input.GetMouseButtonUp (1)) {
 
-
 			Pivot.transform.localPosition = pivotTransform;
+			myAnimator.SetBool ("Aim",false);
+			isAiming = false;
+
 		}
 
 
