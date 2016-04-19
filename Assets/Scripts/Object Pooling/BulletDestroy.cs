@@ -18,7 +18,7 @@ public class BulletDestroy : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Info")
+		if ((other.gameObject.tag != "Info") || (other.gameObject.tag != "Platform"))
         {
             Destroy();
         }

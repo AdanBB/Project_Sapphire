@@ -5,11 +5,15 @@ public class footSteps : MonoBehaviour
 {
 
     public GameObject steps;
+	public GameObject splash;
     private float _localCounter;
     private bool moving;
     private Color _stepColor;
     private int child;
     private int _stepNumber;
+
+	private bool activeSteps;
+	public Vector3 rotation;
 
     void Awake()
     {
@@ -28,31 +32,42 @@ public class footSteps : MonoBehaviour
     }
 
     void OnTriggerStay(Collider other)
-    {
-        moving = gameObject.GetComponent<playerController>()._isMoving;
+	{
+		moving = gameObject.GetComponent<playerController> ()._isMoving;
 
-        if ((other.gameObject.tag == "Floor") && (moving == true) && (_stepNumber <= 4))
-        {
-            _localCounter++;
-            if (_localCounter >= 14)
-            {
-                Instantiate(steps,
-                            new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z),
-                            Quaternion.Euler(transform.parent.transform.rotation.x + 90, transform.parent.transform.rotation.y, transform.parent.transform.rotation.z));
+		if ((other.gameObject.tag == "Floor") && (moving == true) && (activeSteps == true)) {
+			_localCounter++;
+			if (_localCounter >= 14) {
 
-                _localCounter = 0;
-                _stepNumber += 1;
-            }
-        }
-    }
+				rotation = transform.parent.rotation.eulerAngles;
+				Instantiate (steps, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z), Quaternion.Euler (rotation.x + 90, rotation.y, rotation.z));
+				
 
-    void OnTriggerEnter(Collider other)
-    {
-        if ((other.gameObject.tag == "Platform"))
-        {
-            _stepColor = other.gameObject.GetComponentInChildren<Renderer>().material.color;
-            steps.GetComponent<SpriteRenderer>().color = _stepColor;
-            _stepNumber = 0;
-        }
-    }
+				_localCounter = 0;
+				_stepNumber += 1;
+			}
+			if (_stepNumber >= 4) {
+
+				activeSteps = false;
+			}
+		}
+
+		if ((other.tag == "Platform")) {
+
+			activeSteps = true;
+			_stepColor = other.gameObject.transform.GetChild (1).GetComponentInChildren<Renderer> ().material.color;
+			steps.GetComponent<SpriteRenderer> ().color = _stepColor;
+			_stepNumber = 0;
+		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if ((other.gameObject.tag == "Floor") && (activeSteps == true)) {
+			rotation = transform.parent.rotation.eulerAngles;
+			Instantiate (splash, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z), Quaternion.Euler (rotation.x + 90, rotation.y, rotation.z));
+		}
+
+	}
+
 }
