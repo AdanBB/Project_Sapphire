@@ -25,12 +25,26 @@ public class PlayerAI : MonoBehaviour
     public Image weaponImage;
     public List<Sprite> weaponTexture;
 
+	private GameObject Pivot;
+	public Vector3 pivotTransform;
+	public Vector3 _pivotTransform;
+
+	void Awake(){
+	
+		Pivot = GameObject.FindGameObjectWithTag ("Camera").transform.GetChild (0).gameObject;
+
+
+
+	
+	}
 
     void Start()
     {
         weaponColor = 0;
         _firetime = fireTime;
 		isAttacking = false;
+		pivotTransform = new Vector3 (0.17f,2.83f,-5.08f);
+		_pivotTransform = new Vector3 (0.79f,2.42f,-2.03f);
     }
     // Update is called once per frame
     void Update()
@@ -79,6 +93,7 @@ public class PlayerAI : MonoBehaviour
         }
 
 
+
     }
 
     public void RangeWeapon()
@@ -100,6 +115,19 @@ public class PlayerAI : MonoBehaviour
             Fire();
             _firetime = fireTime;
         }
+
+		if (Input.GetMouseButtonDown (1)) {
+
+
+			Pivot.transform.localPosition = _pivotTransform;
+		}
+		if (Input.GetMouseButtonUp (1)) {
+
+
+			Pivot.transform.localPosition = pivotTransform;
+		}
+
+
 
     }
     void Fire()

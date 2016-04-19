@@ -27,7 +27,7 @@ public class CharacterStats : MonoBehaviour
     {
         if (currentHealth > 0)
         {
-            myAnimator.SetBool("IsDamaged", true);
+            //myAnimator.SetBool("IsDamaged", true);
             currentHealth -= damage;
         }
         if (currentHealth <= 0)

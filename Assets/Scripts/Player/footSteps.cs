@@ -8,9 +8,11 @@ public class footSteps : MonoBehaviour
 	public GameObject splash;
     private float _localCounter;
     private bool moving;
-    private Color _stepColor;
+    public Color _stepColor;
+	private Color _splashColor;
     private int child;
     private int _stepNumber;
+	private GameObject instantiatedPrefab;
 
 	private bool activeSteps;
 	public Vector3 rotation;
@@ -65,7 +67,10 @@ public class footSteps : MonoBehaviour
 	{
 		if ((other.gameObject.tag == "Floor") && (activeSteps == true)) {
 			rotation = transform.parent.rotation.eulerAngles;
-			Instantiate (splash, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z), Quaternion.Euler (rotation.x + 90, rotation.y, rotation.z));
+			splash.GetComponent<SpriteRenderer> ().color = _stepColor;
+			//Instantiate (splash, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z), Quaternion.Euler (rotation.x + 90, rotation.y+ Random.Range(0,360), rotation.z));
+			instantiatedPrefab = Instantiate(splash, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z), Quaternion.Euler (rotation.x + 90, rotation.y+ Random.Range(0,360), rotation.z)) as GameObject;
+			instantiatedPrefab.transform.localScale = new Vector3(Random.Range(1, 3) ,Random.Range(1, 3),1);
 		}
 
 	}
