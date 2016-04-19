@@ -74,6 +74,7 @@ ModelImporter:
     100132: Character1_Ctrl_Spine2
     100134: Object001
     100136: //RootNode
+    100138: nurbsCube1
     400000: Bip001
     400002: Bip001 Head
     400004: Bip001 HeadNub
@@ -143,6 +144,7 @@ ModelImporter:
     400132: Character1_Ctrl_Spine2
     400134: Object001
     400136: //RootNode
+    400138: nurbsCube1
     4300000: Object001
     7400000: RUN
     7400002: IDLE
