@@ -30,6 +30,10 @@ public class PlayerAI : MonoBehaviour
 	public Vector3 pivotTransform;
 	public Vector3 _pivotTransform;
 
+	private int currentFrame;
+	private int _currentFrame;
+	private int framesDuration;
+
 	void Awake(){
 	
 		Pivot = GameObject.FindGameObjectWithTag ("Camera").transform.GetChild (0).gameObject;
@@ -44,6 +48,9 @@ public class PlayerAI : MonoBehaviour
 		isAttacking = false;
 		pivotTransform = new Vector3 (0.17f,2.83f,-5.08f);
 		_pivotTransform = new Vector3 (0.79f,2.42f,-2.03f);
+		currentFrame = 0;
+		_currentFrame = 15;
+		framesDuration = 15;
     }
     // Update is called once per frame
     void Update()
@@ -60,6 +67,7 @@ public class PlayerAI : MonoBehaviour
                 MeleWeapon();
                 break;
         }
+
     }
     public void MeleWeapon()
     {
@@ -117,18 +125,58 @@ public class PlayerAI : MonoBehaviour
 
 		if (Input.GetMouseButtonDown (1)) {
 
-			Pivot.transform.localPosition = _pivotTransform;
+			//Pivot.transform.localPosition = _pivotTransform;
+			Aim();
 			myAnimator.SetBool ("Aim",true);
+			_currentFrame = 0;
 			isAiming = true;
 
 		}
+
 		if (Input.GetMouseButtonUp (1)) {
 
-			Pivot.transform.localPosition = pivotTransform;
+			//Pivot.transform.localPosition = pivotTransform;
 			myAnimator.SetBool ("Aim",false);
+			currentFrame = 0;
 			isAiming = false;
+			Invoke ("Aim", 0.2f);
 
 		}
+		if (isAiming) {
+
+			if(currentFrame <= framesDuration)
+			{
+				// TODO: calcular easing
+				//transform.position = new Vector3(x,y,z);
+				//transform.localScale = new Vector3(x,y,z);
+				//transform.rotation = Quaternion.Euler(x,y,z);
+				//mat.color = new Color(r,g,b,a);
+
+				Pivot.transform.localPosition = new Vector3(Easing.QuartEaseIn(currentFrame, pivotTransform.x, (_pivotTransform.x - pivotTransform.x), framesDuration),
+					Easing.QuartEaseIn(currentFrame, pivotTransform.y, (_pivotTransform.y - pivotTransform.y), framesDuration),
+					Easing.QuartEaseIn(currentFrame, pivotTransform.z, (_pivotTransform.z - pivotTransform.z), framesDuration));        
+				currentFrame++;
+			}
+
+		}
+		if (!isAiming) {
+		
+			if(_currentFrame <= framesDuration)
+			{
+				// TODO: calcular easing
+				//transform.position = new Vector3(x,y,z);
+				//transform.localScale = new Vector3(x,y,z);
+				//transform.rotation = Quaternion.Euler(x,y,z);
+				//mat.color = new Color(r,g,b,a);
+
+				Pivot.transform.localPosition = new Vector3(Easing.QuartEaseIn(_currentFrame, _pivotTransform.x, (pivotTransform.x - _pivotTransform.x), framesDuration),
+					Easing.QuartEaseIn(_currentFrame, _pivotTransform.y, (pivotTransform.y - _pivotTransform.y), framesDuration),
+					Easing.QuartEaseIn(_currentFrame, _pivotTransform.z, (pivotTransform.z - _pivotTransform.z), framesDuration));        
+				_currentFrame++;
+			}
+		
+		}
+
 
 
 
@@ -148,6 +196,13 @@ public class PlayerAI : MonoBehaviour
 	
 		myAnimator.SetBool ("IsAttacking", false);
 		isAttacking = false;
+	
+	}
+	void Aim(){
+		
+
+
+
 	
 	}
 }

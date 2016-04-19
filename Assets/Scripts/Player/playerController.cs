@@ -48,7 +48,7 @@ public class playerController : MonoBehaviour
 			transform.parent.transform.rotation = Quaternion.Euler (0, (direction.rotationEuler.y) %360, 0 );
 			speed = 3;
 		
-		} else if (weapon.isAiming) {
+		} else if (!weapon.isAiming) {
 		
 		
 			speed = _speed;
