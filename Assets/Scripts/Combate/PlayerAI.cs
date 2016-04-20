@@ -27,8 +27,8 @@ public class PlayerAI : MonoBehaviour
     public List<Sprite> weaponTexture;
 
 	private GameObject Pivot;
-	public Vector3 pivotTransform;
-	public Vector3 _pivotTransform;
+	private Vector3 pivotTransform;
+	private Vector3 _pivotTransform;
 
 	private int currentFrame;
 	private int _currentFrame;
@@ -169,9 +169,9 @@ public class PlayerAI : MonoBehaviour
 				//transform.rotation = Quaternion.Euler(x,y,z);
 				//mat.color = new Color(r,g,b,a);
 
-				Pivot.transform.localPosition = new Vector3(Easing.QuartEaseIn(_currentFrame, _pivotTransform.x, (pivotTransform.x - _pivotTransform.x), framesDuration),
-					Easing.QuartEaseIn(_currentFrame, _pivotTransform.y, (pivotTransform.y - _pivotTransform.y), framesDuration),
-					Easing.QuartEaseIn(_currentFrame, _pivotTransform.z, (pivotTransform.z - _pivotTransform.z), framesDuration));        
+				Pivot.transform.localPosition = new Vector3(Easing.QuartEaseOut(_currentFrame, _pivotTransform.x, (pivotTransform.x - _pivotTransform.x), framesDuration),
+					Easing.QuartEaseOut(_currentFrame, _pivotTransform.y, (pivotTransform.y - _pivotTransform.y), framesDuration),
+					Easing.QuartEaseOut(_currentFrame, _pivotTransform.z, (pivotTransform.z - _pivotTransform.z), framesDuration));        
 				_currentFrame++;
 			}
 		
