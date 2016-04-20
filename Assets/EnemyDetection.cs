@@ -7,15 +7,14 @@ public class EnemyDetection : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
-            Debug.Log("Player Entrando");
+        
+            
 
 
     }
     void OnTriggerStay(Collider other)
     {
 		if (other.tag == "Player") {
-			Debug.Log ("Player Entrando");
 			enemyAi2.FollowPlayer ();
 		}
             
@@ -24,7 +23,6 @@ public class EnemyDetection : MonoBehaviour {
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
-            Debug.Log("Player saliendo");
+        
     }
 }

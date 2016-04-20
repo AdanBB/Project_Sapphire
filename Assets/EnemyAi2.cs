@@ -52,7 +52,7 @@ public class EnemyAi2 : MonoBehaviour {
 	void Start () {
 		_health = health;
 		attack = false;
-		counter2 = 1.5f;
+		counter2 = 1.2f;
 		counter = counter2;
 		detectionCollider.radius = detectionRange;
 

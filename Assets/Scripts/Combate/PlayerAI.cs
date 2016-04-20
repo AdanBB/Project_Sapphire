@@ -118,7 +118,6 @@ public class PlayerAI : MonoBehaviour
         if (_firetime <= 0 && Input.GetButtonDown("Fire1"))
         {
             myAnimator.SetBool("IsShooting", true);
-            Debug.Log("disparo");
             Fire();
             _firetime = fireTime;
         }

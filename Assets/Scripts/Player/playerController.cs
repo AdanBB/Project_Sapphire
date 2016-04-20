@@ -43,15 +43,18 @@ public class playerController : MonoBehaviour
 
 	void FixedUpdate(){
 
+
 		if (weapon.isAiming) {
 
 			transform.parent.transform.rotation = Quaternion.Euler (0, (direction.rotationEuler.y) %360, 0 );
+			myAnimator.speed = 0.7f;
 			speed = 3;
 		
 		} else if (!weapon.isAiming) {
 		
 		
 			speed = _speed;
+			myAnimator.speed = 1f;
 		}
 
 
@@ -71,16 +74,16 @@ public class playerController : MonoBehaviour
 		}
 		if (!grounded) {
 			// Calculate how fast we should be moving
-		Vector3 targetVelocity = new Vector3 (Input.GetAxis ("Horizontal")	, 0, Input.GetAxis ("Vertical"));
+			Vector3 targetVelocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 			targetVelocity = transform.TransformDirection (targetVelocity);
 			targetVelocity *= (speed - 2);
-		if (Input.GetButton ("Vertical")) {
-			myAnimator.SetBool ("IsMoving", true);
-            _isMoving = true;
-		} else {
-			myAnimator.SetBool ("IsMoving", false);
-            _isMoving = false;
-		}
+			if (Input.GetButton ("Vertical")) {
+				myAnimator.SetBool ("IsMoving", true);
+				_isMoving = true;
+			} else {
+				myAnimator.SetBool ("IsMoving", false);
+				_isMoving = false;
+			}
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rb.velocity;
 			Vector3 velocityChange = (targetVelocity - velocity);
@@ -88,18 +91,20 @@ public class playerController : MonoBehaviour
 			velocityChange.z = Mathf.Clamp (velocityChange.z, -maxVelocityChange, maxVelocityChange);
 			velocityChange.y = 0;
 			rb.AddForce (velocityChange, ForceMode.VelocityChange);
-		} else if (grounded) {
+
+		} else if (grounded && (!weapon.isAiming)) {
+			
 			// Calculate how fast we should be moving
-		Vector3 targetVelocity = new Vector3 (Input.GetAxis ("Horizontal"), 0 , Input.GetAxis ("Vertical"));
+			Vector3 targetVelocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 			targetVelocity = transform.TransformDirection (targetVelocity);
 			targetVelocity *= speed;
-		if (Input.GetButton ("Vertical") || Input.GetButton ("Horizontal") ) {
-			myAnimator.SetBool ("IsMoving", true);
-            _isMoving = true;
-		} else {
-			myAnimator.SetBool ("IsMoving", false);
-            _isMoving = false;
-		}
+			if (Input.GetButton ("Vertical") || Input.GetButton ("Horizontal")) {
+				myAnimator.SetBool ("IsMoving", true);
+				_isMoving = true;
+			} else {
+				myAnimator.SetBool ("IsMoving", false);
+				_isMoving = false;
+			}
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rb.velocity;
 			Vector3 velocityChange = (targetVelocity - velocity);
@@ -108,21 +113,52 @@ public class playerController : MonoBehaviour
 			velocityChange.y = 0;
 			rb.AddForce (velocityChange, ForceMode.VelocityChange);
 
-		CalculateDirection ();
-			
+			CalculateDirection ();
+				
 
 			// Jump
-		if (canJump && Input.GetButton ("Jump")) {
+			if (canJump && Input.GetButton ("Jump")) {
 
 				Invoke ("Jump", 0.2f);
 				isJumping = true;
 				myAnimator.SetBool ("IsGrounded", false);
 
+			}
+
+		} else if (grounded && (weapon.isAiming)) {
+
+			// Calculate how fast we should be moving
+			Vector3 targetVelocity = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis ("Vertical"));
+			targetVelocity = transform.TransformDirection (targetVelocity);
+			targetVelocity *= speed;
+			if (Input.GetButton ("Vertical") || Input.GetButton ("Horizontal")) {
+				myAnimator.SetBool ("IsMoving", true);
+				_isMoving = true;
+			} else {
+				myAnimator.SetBool ("IsMoving", false);
+				_isMoving = false;
+			}
+			// Apply a force that attempts to reach our target velocity
+			Vector3 velocity = rb.velocity;
+			Vector3 velocityChange = (targetVelocity - velocity);
+			velocityChange.x = Mathf.Clamp (velocityChange.x, -maxVelocityChange, maxVelocityChange);
+			velocityChange.z = Mathf.Clamp (velocityChange.z, -maxVelocityChange, maxVelocityChange);
+			velocityChange.y = 0;
+			rb.AddForce (velocityChange, ForceMode.VelocityChange);
+
+			CalculateDirection ();
+
+
+			// Jump
+			if (canJump && Input.GetButton ("Jump")) {
+
+				Invoke ("Jump", 0.2f);
+				isJumping = true;
+				myAnimator.SetBool ("IsGrounded", false);
+
+			}
+
 		}
-
-	}
-
-
 
 		if ((!direction.isRotate) && ((Input.GetButton ("Horizontal") || Input.GetButton ("Vertical"))))  {
 		
@@ -148,7 +184,7 @@ public class playerController : MonoBehaviour
 			if (!isJumping) {
 				myAnimator.SetBool ("IsGrounded", true);
 				grounded = true;
-				Debug.Log ("Estoy tocando el suelo");
+
 			}
 		}
 
@@ -174,72 +210,66 @@ public class playerController : MonoBehaviour
 
 	void CalculateDirection(){
 
-
-		if (Input.GetKey(KeyCode.W))
-		{
-
-			//Rotate Player, check detection.isRotate true and W
-
-
-			if (Input.GetKey (KeyCode.D)) {
-			
-				Rotate (5);
-			
-			} else if (Input.GetKey (KeyCode.A)) {
-
-				Rotate (6);
-
-			} else
-				Rotate (3);
-
-			//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
-		}
-		else if (Input.GetKey(KeyCode.S))
-		{
-
-			//Rotate Player, check detection.isRotate true and W
-			if (Input.GetKey (KeyCode.D)) {
-
-				Rotate (7);
-
-			} else if (Input.GetKey (KeyCode.A)) {
-
-				Rotate (8);
-
-			} else Rotate(4);
-			//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
-		}
-		else if (Input.GetKey(KeyCode.D))
-		{
-
+		if (!weapon.isAiming) {
 			if (Input.GetKey (KeyCode.W)) {
 
-				Rotate (5);
+				//Rotate Player, check detection.isRotate true and W
 
-			}else if (Input.GetKey (KeyCode.S)) {
 
-				Rotate (7);
+				if (Input.GetKey (KeyCode.D)) {
+			
+					Rotate (5);
+			
+				} else if (Input.GetKey (KeyCode.A)) {
 
-			}else 
-				Rotate(1);
-			//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
+					Rotate (6);
+
+				} else
+					Rotate (3);
+
+				//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
+			} else if (Input.GetKey (KeyCode.S)) {
+
+				//Rotate Player, check detection.isRotate true and W
+				if (Input.GetKey (KeyCode.D)) {
+
+					Rotate (7);
+
+				} else if (Input.GetKey (KeyCode.A)) {
+
+					Rotate (8);
+
+				} else
+					Rotate (4);
+				//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
+			} else if (Input.GetKey (KeyCode.D)) {
+
+				if (Input.GetKey (KeyCode.W)) {
+
+					Rotate (5);
+
+				} else if (Input.GetKey (KeyCode.S)) {
+
+					Rotate (7);
+
+				} else
+					Rotate (1);
+				//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
+			} else if (Input.GetKey (KeyCode.A)) {
+				//Rotate Player, check detection.isRotate true and W
+				if (Input.GetKey (KeyCode.W)) {
+
+					Rotate (6);
+
+				} else if (Input.GetKey (KeyCode.S)) {
+
+					Rotate (8);
+
+				} else
+					Rotate (2);
+				//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
+			}
 		}
-
-		else if (Input.GetKey(KeyCode.A))
-		{
-			//Rotate Player, check detection.isRotate true and W
-			if (Input.GetKey (KeyCode.W)) {
-
-				Rotate (6);
-
-			}else if (Input.GetKey (KeyCode.S)) {
-
-				Rotate (8);
-
-			}else Rotate(2);
-			//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
-		}
-
 	}
 	void Rotate(int i){
 		if (i == 1) {
