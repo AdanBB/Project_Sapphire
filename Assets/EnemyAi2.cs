@@ -11,6 +11,7 @@ public class EnemyAi2 : MonoBehaviour {
 	public float velocity;
 
 
+
 	public Color normal;
 	public Color blue;
 	public Color green;
@@ -35,6 +36,8 @@ public class EnemyAi2 : MonoBehaviour {
 	private float counterAnim;
 	private float _counterAnim;
 
+	public GameObject sword;
+	public GameObject psitol;
 
 	private Animator anim;
 	// Use this for initialization

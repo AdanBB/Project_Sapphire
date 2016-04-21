@@ -38,6 +38,9 @@ public class PlayerAI : MonoBehaviour
 	public Gradient gradientBlue;
 	public Gradient gradientGreen;
 
+	public GameObject swordGO;
+	public GameObject pistolGO;
+
 	void Awake(){
 	
 		Pivot = GameObject.FindGameObjectWithTag ("Camera").transform.GetChild (0).gameObject;
@@ -55,6 +58,8 @@ public class PlayerAI : MonoBehaviour
 		currentFrame = 0;
 		_currentFrame = 15;
 		framesDuration = 15;
+		swordGO.SetActive (false);
+		pistolGO.SetActive (true);
 
 
     }
@@ -80,11 +85,14 @@ public class PlayerAI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             weaponImage.sprite = weaponTexture[0]; 
-            weapon = Weapon.RANGE;
+            weapon = Weapon.RANGE;	
+			swordGO.SetActive (false);
+			pistolGO.SetActive (true);
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
 			var colo = sword.colorOverLifetime;
+
 			colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
             weaponColor = 1;
             // scroll up
@@ -119,6 +127,8 @@ public class PlayerAI : MonoBehaviour
         {
             weaponImage.sprite = weaponTexture[1];
             weapon = Weapon.MELEE;
+			swordGO.SetActive (true);
+			pistolGO.SetActive (false);
         }
         if (_firetime >= 0)
         {
