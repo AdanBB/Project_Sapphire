@@ -34,6 +34,10 @@ public class PlayerAI : MonoBehaviour
 	private int _currentFrame;
 	private int framesDuration;
 
+	public ParticleSystem sword;
+	public Gradient gradientBlue;
+	public Gradient gradientGreen;
+
 	void Awake(){
 	
 		Pivot = GameObject.FindGameObjectWithTag ("Camera").transform.GetChild (0).gameObject;
@@ -51,6 +55,8 @@ public class PlayerAI : MonoBehaviour
 		currentFrame = 0;
 		_currentFrame = 15;
 		framesDuration = 15;
+
+
     }
     // Update is called once per frame
     void Update()
@@ -78,12 +84,16 @@ public class PlayerAI : MonoBehaviour
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
+			var colo = sword.colorOverLifetime;
+			colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
             weaponColor = 1;
             // scroll up
             myRenderer.material.color = weaponColorBlue;
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
+			var colo = sword.colorOverLifetime;
+			colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
             weaponColor = 2;
             // scroll down
             myRenderer.material.color = weaponColorGreen;
