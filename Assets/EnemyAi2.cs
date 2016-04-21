@@ -95,7 +95,7 @@ public class EnemyAi2 : MonoBehaviour {
 			anim.SetBool ("IsLastHit", true);
 			lastHitCounter += Time.deltaTime;
 			if (lastHitCounter >= 3) {
-				treeBody.GetComponent<Renderer> ().material.color = normal;
+				treeBody.GetComponent<Renderer> ().materials[1].color = normal;
 				health = _health;
 				lastHitCounter = 0;
 				lastHit = !lastHit;
@@ -153,11 +153,11 @@ public class EnemyAi2 : MonoBehaviour {
 
 			if (random == 1) {
 			
-				treeBody.GetComponent<Renderer> ().material.color = green;
+				treeBody.GetComponent<Renderer> ().materials[1].color = green;
 			}
 			if (random == 2) {
 
-				treeBody.GetComponent<Renderer> ().material.color = blue;
+				treeBody.GetComponent<Renderer> ().materials[1].color = blue;
 			}
 				
 			lastHit = !lastHit;
