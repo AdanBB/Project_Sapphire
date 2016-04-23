@@ -40,15 +40,10 @@ public class PlayerAI : MonoBehaviour
 
 	public GameObject swordGO;
 	public GameObject pistolGO;
-	public GameObject ShootParticle;
-
-	public GameObject[] ShootParticles;
-
 
 	void Awake(){
 	
 		Pivot = GameObject.FindGameObjectWithTag ("Camera").transform.GetChild (0).gameObject;
-
 
 	}
 
@@ -65,7 +60,6 @@ public class PlayerAI : MonoBehaviour
 		framesDuration = 15;
 		swordGO.SetActive (false);
 		pistolGO.SetActive (true);
-
 
 
     }
@@ -141,7 +135,7 @@ public class PlayerAI : MonoBehaviour
             _firetime--;
 
         }
-		if (_firetime <= 0 && Input.GetButtonDown("Fire1") && isAiming)
+        if (_firetime <= 0 && Input.GetButtonDown("Fire1"))
         {
             myAnimator.SetBool("IsShooting", true);
             Fire();
@@ -216,7 +210,6 @@ public class PlayerAI : MonoBehaviour
         obj.transform.rotation = transform.rotation;
         obj.SetActive(true);
 
-		Instantiate (ShootParticle, transform.position, transform.rotation);
     }
 	void FireRestart(){
 	
