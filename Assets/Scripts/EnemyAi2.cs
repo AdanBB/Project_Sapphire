@@ -36,8 +36,7 @@ public class EnemyAi2 : MonoBehaviour {
 	private float counterAnim;
 	private float _counterAnim;
 
-	public GameObject sword;
-	public GameObject psitol;
+	public GameObject[] deathParticles;
 
 	private Animator anim;
 	// Use this for initialization
@@ -170,6 +169,10 @@ public class EnemyAi2 : MonoBehaviour {
 		
 			if (random == color) {
 			
+				if (random == 1)
+					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 2, transform.position.z), transform.rotation);
+				if (random == 2)
+					Instantiate (deathParticles[1], treeBody.transform.position, transform.rotation);
 				Destroy (this.gameObject);
 			
 			}
