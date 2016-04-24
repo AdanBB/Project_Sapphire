@@ -23,7 +23,9 @@ public class playerController : MonoBehaviour
 	private float counterJump;
 	public bool isJumping;
 	public PlayerAI weapon;
+	private GameObject player;
 
+	public AudioClip jumpSound;
 
     void Awake()
     {
@@ -31,6 +33,7 @@ public class playerController : MonoBehaviour
 		rb = transform.parent.GetComponent<Rigidbody>();
 		myAnimator = transform.parent.GetComponent<Animator>();
 		direction = transform.GetComponent<cameraFollow> ();
+		player = transform.parent.gameObject;
 
 		_speed = speed;
 		isRotating = false;
@@ -205,6 +208,9 @@ public class playerController : MonoBehaviour
 
 		rb.velocity = new Vector3 (velocity.x, CalculateJumpVerticalSpeed (), velocity.z);
 		isJumping = false;
+		player.GetComponent<AudioSource> ().PlayOneShot (jumpSound);
+
+
 	
 	}
 

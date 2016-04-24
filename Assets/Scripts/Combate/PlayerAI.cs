@@ -44,10 +44,13 @@ public class PlayerAI : MonoBehaviour
 
 	public GameObject[] ShootParticles;
 
+	public AudioClip SwordChangeColor;
+
 
 	void Awake(){
 	
 		Pivot = GameObject.FindGameObjectWithTag ("Camera").transform.GetChild (0).gameObject;
+
 
 
 	}
@@ -103,6 +106,7 @@ public class PlayerAI : MonoBehaviour
             weaponColor = 1;
             // scroll up
             myRenderer.material.color = weaponColorBlue;
+			Invoke ("ChangeColor", 0.1f);
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
@@ -111,6 +115,7 @@ public class PlayerAI : MonoBehaviour
             weaponColor = 2;
             // scroll down
             myRenderer.material.color = weaponColorGreen;
+			Invoke ("ChangeColor", 0.1f);
             
         }
 		if (Input.GetButtonDown("Fire1")&& (!isAttacking))
@@ -229,6 +234,12 @@ public class PlayerAI : MonoBehaviour
 
 
 
+	
+	}
+	void ChangeColor(){
+	
+	
+		GetComponentInParent<AudioSource> ().PlayOneShot (SwordChangeColor);
 	
 	}
 }
