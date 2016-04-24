@@ -1,39 +1,61 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class HorizontalStructure
+{
+    public GameObject HAPoint;
+    public GameObject HBPoint;
+}
+
+[System.Serializable]
+public class VerticalStructure
+{
+    public GameObject VAPoint;
+    public GameObject VBPoint;
+}
+
 public class PlatformMovemet : MonoBehaviour
 {
+    #region Variables
     private Renderer myRenderer;
 
     public Transform parent;
+
+    public float waitingFrames;
 
     [Header("Colors")]
 
     public Color verticalColor;
     public Color hotizontalColor;
 
-    [Header ("Horizontal")]
-    public Transform targetHA;
-    public Transform targetHB;
+    [Header("Horizontal")]
 
-    public float maxHDistance;
-    public float speedH;
+    public HorizontalStructure horizontalMovement;
+
+    public float leftHDistance;
+    public float rightHDistance;
+
+    public float horizontalSpeed;
 
     private int caseSwitchH;
     private int timeCounterH;
 
     [Header("Vertical")]
 
-    private float targetVA;
-    private float targetVB;
+    public VerticalStructure verticalMovement;
 
-    public float maxVDistance;
-    public float speedV;
+    public float upVDistance;
+    public float downvDistance;
+
+    public float verticalSpeed;
 
     private int caseSwitchV;
     private int timeCounterV;
 
     private Transform myTransform;
+
+    #endregion
 
     // Use this for initialization
     void Awake()
@@ -42,15 +64,9 @@ public class PlatformMovemet : MonoBehaviour
         myRenderer = this.GetComponent<Renderer>();
         myTransform = parent.GetComponent<Transform>();
 
-        //Horizontal Movement
-		//targetHA = myTransform.position.z + maxHDistance;
-		//targetHB = myTransform.position.z - maxHDistance;
         timeCounterH = 0;
         caseSwitchH = 1;
 
-        //Vertical Movement
-		targetVA = myTransform.position.y - maxVDistance;
-		targetVB = myTransform.position.y + maxVDistance;
         timeCounterV = 0;
         caseSwitchV = 1;
     }
@@ -58,6 +74,7 @@ public class PlatformMovemet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        LocalPosition();
         ColorDetection();
     }
 
@@ -81,9 +98,9 @@ public class PlatformMovemet : MonoBehaviour
 
                 timeCounterH = 0;
 
-                myTransform.position = Vector3.MoveTowards(myTransform.position, targetHA.position, Time.deltaTime * speedH);
+                myTransform.position = Vector3.MoveTowards(myTransform.position, horizontalMovement.HAPoint.transform.position, Time.deltaTime * horizontalSpeed);
 
-                if (myTransform.position.z == targetHA.position.z)
+                if (myTransform.position == horizontalMovement.HAPoint.transform.position)
                 {
                     caseSwitchH = 2;
 
@@ -93,7 +110,7 @@ public class PlatformMovemet : MonoBehaviour
 
                 timeCounterH++;
 
-                if (timeCounterH == 120)
+                if (timeCounterH >= waitingFrames)
                 {
                     caseSwitchH = 3;
                 }
@@ -102,9 +119,9 @@ public class PlatformMovemet : MonoBehaviour
 			
                 timeCounterH = 0;
 
-                myTransform.position = Vector3.MoveTowards(myTransform.position, targetHB.position, Time.deltaTime * speedH);
+                myTransform.position = Vector3.MoveTowards(myTransform.position, horizontalMovement.HBPoint.transform.position, Time.deltaTime * horizontalSpeed);
 
-                if (myTransform.position.z == targetHB.position.z)
+                if (myTransform.position == horizontalMovement.HBPoint.transform.position)
                 {
                     caseSwitchH = 4;
                 }
@@ -113,7 +130,7 @@ public class PlatformMovemet : MonoBehaviour
 			
                 timeCounterH++;
 
-                if (timeCounterH == 120)
+                if (timeCounterH >= waitingFrames)
                 {
                     caseSwitchH = 1;
                 }
@@ -129,19 +146,20 @@ public class PlatformMovemet : MonoBehaviour
 
                 timeCounterV = 0;
 
-                myTransform.position = Vector3.MoveTowards(myTransform.position, new Vector3(transform.position.x, targetVA, transform.position.z), Time.deltaTime * speedH);
+                myTransform.position = Vector3.MoveTowards(myTransform.position, verticalMovement.VAPoint.transform.position, Time.deltaTime * verticalSpeed);
 
-			if (myTransform.position.y == targetVA)
+			if (myTransform.position.y >= verticalMovement.VAPoint.transform.position.y)
                 {
                     caseSwitchV = 2;
 
                 }
                 break;
             case 2:
-			
+
+                Debug.Log("Case2");
                 timeCounterV++;
 
-                if (timeCounterV == 120)
+                if (timeCounterV >= waitingFrames)
                 {
                     caseSwitchV = 3;
                 }
@@ -149,10 +167,10 @@ public class PlatformMovemet : MonoBehaviour
             case 3:
 			
                 timeCounterV = 0;
+                Debug.Log("Case3");
+                myTransform.position = Vector3.MoveTowards(myTransform.position, verticalMovement.VBPoint.transform.position, Time.deltaTime * verticalSpeed);
 
-                myTransform.position = Vector3.MoveTowards(myTransform.position, new Vector3(transform.position.x, targetVB, transform.position.z), Time.deltaTime * speedH);
-
-			if (myTransform.position.y == targetVB)
+			if (myTransform.position.y <= verticalMovement.VBPoint.transform.position.y)
                 {
                     caseSwitchV = 4;
                 }
@@ -161,11 +179,21 @@ public class PlatformMovemet : MonoBehaviour
 			
                 timeCounterV++;
 
-                if (timeCounterV == 120)
+                if (timeCounterV >= waitingFrames)
                 {
                     caseSwitchV = 1;
                 }
                 break;
         }
     }
+
+    public void LocalPosition()
+    {
+        verticalMovement.VAPoint.transform.position = new Vector3(myTransform.position.x, upVDistance, myTransform.position.z);
+        verticalMovement.VBPoint.transform.position = new Vector3(myTransform.position.x, downvDistance, myTransform.position.z);
+
+        horizontalMovement.HAPoint.transform.position = new Vector3(rightHDistance , myTransform.position.y, 0);
+        horizontalMovement.HBPoint.transform.position = new Vector3(leftHDistance, myTransform.position.y, 0);
+    }
+
 }
