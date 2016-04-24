@@ -33,9 +33,6 @@ public class PlatformMovemet : MonoBehaviour
 
     public HorizontalStructure horizontalMovement;
 
-    public float leftHDistance;
-    public float rightHDistance;
-
     public float horizontalSpeed;
 
     private int caseSwitchH;
@@ -44,9 +41,6 @@ public class PlatformMovemet : MonoBehaviour
     [Header("Vertical")]
 
     public VerticalStructure verticalMovement;
-
-    public float upVDistance;
-    public float downvDistance;
 
     public float verticalSpeed;
 
@@ -148,7 +142,7 @@ public class PlatformMovemet : MonoBehaviour
 
                 myTransform.position = Vector3.MoveTowards(myTransform.position, verticalMovement.VAPoint.transform.position, Time.deltaTime * verticalSpeed);
 
-			if (myTransform.position.y >= verticalMovement.VAPoint.transform.position.y)
+			if (myTransform.position.y == verticalMovement.VAPoint.transform.position.y)
                 {
                     caseSwitchV = 2;
 
@@ -156,7 +150,6 @@ public class PlatformMovemet : MonoBehaviour
                 break;
             case 2:
 
-                Debug.Log("Case2");
                 timeCounterV++;
 
                 if (timeCounterV >= waitingFrames)
@@ -167,10 +160,9 @@ public class PlatformMovemet : MonoBehaviour
             case 3:
 			
                 timeCounterV = 0;
-                Debug.Log("Case3");
                 myTransform.position = Vector3.MoveTowards(myTransform.position, verticalMovement.VBPoint.transform.position, Time.deltaTime * verticalSpeed);
 
-			if (myTransform.position.y <= verticalMovement.VBPoint.transform.position.y)
+			if (myTransform.position.y == verticalMovement.VBPoint.transform.position.y)
                 {
                     caseSwitchV = 4;
                 }
@@ -189,11 +181,11 @@ public class PlatformMovemet : MonoBehaviour
 
     public void LocalPosition()
     {
-        verticalMovement.VAPoint.transform.position = new Vector3(myTransform.position.x, upVDistance, myTransform.position.z);
-        verticalMovement.VBPoint.transform.position = new Vector3(myTransform.position.x, downvDistance, myTransform.position.z);
+        verticalMovement.VAPoint.transform.position = new Vector3(myTransform.position.x, verticalMovement.VAPoint.transform.position.y, myTransform.position.z);
+        verticalMovement.VBPoint.transform.position = new Vector3(myTransform.position.x, verticalMovement.VBPoint.transform.position.y, myTransform.position.z);
 
-        horizontalMovement.HAPoint.transform.position = new Vector3(rightHDistance , myTransform.position.y, 0);
-        horizontalMovement.HBPoint.transform.position = new Vector3(leftHDistance, myTransform.position.y, 0);
+        horizontalMovement.HAPoint.transform.position = new Vector3(horizontalMovement.HAPoint.transform.position.x , myTransform.position.y, horizontalMovement.HAPoint.transform.position.z);
+        horizontalMovement.HBPoint.transform.position = new Vector3(horizontalMovement.HBPoint.transform.position.x, myTransform.position.y, horizontalMovement.HBPoint.transform.position.z);
     }
 
 }
