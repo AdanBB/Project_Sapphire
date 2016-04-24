@@ -22,6 +22,7 @@ public class PoolingObjectScript : MonoBehaviour {
         for (int i = 0; i < pooledAmount; i++) 
         {
             GameObject obj = (GameObject)Instantiate(pooledObject);
+            obj.transform.parent = gameObject.transform;
             obj.SetActive(false);
             pooledObjects.Add(obj);
 

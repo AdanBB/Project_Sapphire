@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4d2bc0821ffca8c44a4cc5a6432d19e2
-timeCreated: 1459349630
+guid: 19cf47a30b424b1489f4f8b2c575d7a4
+timeCreated: 1461534056
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -12,7 +12,6 @@ ModelImporter:
     2300000: Box001
     3300000: Box001
     4300000: Box001
-    6400000: Box001
   materials:
     importMaterials: 1
     materialName: 0
@@ -39,7 +38,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
