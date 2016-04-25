@@ -168,7 +168,7 @@ public class PlayerAI : MonoBehaviour
             _firetime--;
 
         }
-		if (_firetime <= 0 && Input.GetButtonDown("Fire1") && isAiming)
+		if (_firetime <= 0 && Input.GetButtonDown("Fire1") && isAiming && (colorManager.colorsUnlock.Count != 0))
         {
             myAnimator.SetBool("IsShooting", true);
             Fire();

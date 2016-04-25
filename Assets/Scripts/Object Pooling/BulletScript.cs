@@ -7,14 +7,14 @@ public class BulletScript : MonoBehaviour {
     public GameObject player;
 	public GameObject colorManagerGO;
 
-	private Color color1;
-	private Color color2;
-	void Start(){
+	public Color color1;
+	public Color color2;
+	void Awake(){
 	
 		colorManagerGO = GameObject.FindGameObjectWithTag ("ColorManager");
 		color1 = colorManagerGO.GetComponent<ColorManager> ().colors[0];
 		color2 = colorManagerGO.GetComponent<ColorManager> ().colors[1];
-		//GetComponent<Renderer> ().sharedMaterial.color = color1;
+
 	}
     void FixedUpdate()
     {
@@ -31,14 +31,14 @@ public class BulletScript : MonoBehaviour {
 		if (color == 0) {
 		
 
-			GetComponent<Renderer> ().sharedMaterial.color = color1;
+			GetComponent<Renderer> ().material.color = color1;
 		
 		
 		}
 		if (color == 1) {
 
 
-			GetComponent<Renderer> ().sharedMaterial.color = color2;
+			GetComponent<Renderer> ().material.color = color2;
 
 		}
 
