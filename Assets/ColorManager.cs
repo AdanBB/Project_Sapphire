@@ -28,11 +28,12 @@ public class ColorManager : MonoBehaviour {
 
 		
 		}
-		if (idColor == 1) {
+		if (idColor == 1 && !boolsColors[1]) {
 
 
 			colorsUnlock.Add (colors [1]);
 
+			boolsColors [1] = !boolsColors [1];
 
 		}
 	

@@ -9,9 +9,7 @@ public class PlayerAI : MonoBehaviour
     public enum Weapon { RANGE, MELEE }
     public Weapon weapon;
     public int damage;
-    //public Text enemyText;
-    public Color weaponColorGreen;
-    public Color weaponColorBlue;
+
     public Renderer myRenderer;
     public int weaponTipe;
     public float fireTime;
@@ -45,6 +43,8 @@ public class PlayerAI : MonoBehaviour
 	public GameObject[] ShootParticles;
 
 	public AudioClip SwordChangeColor;
+
+	public ColorManager colorManager;
 
 
 	void Awake(){
@@ -100,22 +100,35 @@ public class PlayerAI : MonoBehaviour
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-			var colo = sword.colorOverLifetime;
-
-			colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
-            weaponColor = 1;
+			
             // scroll up
-            myRenderer.material.color = weaponColorBlue;
-			Invoke ("ChangeColor", 0.1f);
+			if(colorManager.colorsUnlock.Count == 1){
+				var colo = sword.colorOverLifetime;
+
+				colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
+				weaponColor = 1;
+				myRenderer.material.color = colorManager.colorsUnlock[0];
+
+				Invoke ("ChangeColor", 0.1f);
+			}
+
+
+
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f )
         {
-			var colo = sword.colorOverLifetime;
-			colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
-            weaponColor = 2;
+			
             // scroll down
-            myRenderer.material.color = weaponColorGreen;
-			Invoke ("ChangeColor", 0.1f);
+			if(colorManager.colorsUnlock.Count == 2){
+				var colo = sword.colorOverLifetime;
+				colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
+				weaponColor = 2;
+				myRenderer.material.color = colorManager.colorsUnlock[1];
+
+				Invoke ("ChangeColor", 0.1f);
+			}
+
+
             
         }
 		if (Input.GetButtonDown("Fire1")&& (!isAttacking))
