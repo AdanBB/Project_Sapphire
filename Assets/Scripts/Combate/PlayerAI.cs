@@ -116,7 +116,7 @@ public class PlayerAI : MonoBehaviour
 				myRenderer.material.color = colorManager.colorsUnlock[0];
 
 				
-			Debug.Log ("azul");
+			
 			}
 			if(ColorWeapon.currentColor == 1){
 				var colo = sword.colorOverLifetime;
@@ -124,7 +124,7 @@ public class PlayerAI : MonoBehaviour
 				weaponColor = 2;
 				myRenderer.material.color = colorManager.colorsUnlock[1];
 
-				Debug.Log ("green");
+
 
 
 			}

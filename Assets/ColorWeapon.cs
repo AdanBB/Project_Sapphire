@@ -18,13 +18,9 @@ public class ColorWeapon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		Debug.Log (currentColor);
-		Debug.Log (colorManager.colorsUnlock.Count);
+
 		if (size != colorManager.colorsUnlock.Count) {
-		
-		
-			Debug.Log ("1 color more");
-		
+
 			size = colorManager.colorsUnlock.Count;
 		}
 

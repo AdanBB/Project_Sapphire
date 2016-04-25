@@ -34,7 +34,6 @@ public class BulletDestroy : MonoBehaviour {
 		
 			if ((other.gameObject.tag != "Info") || (other.gameObject.tag != "Platform"))
 			{
-				Debug.Log (other.tag);
 				Invoke("Destroy", 0.05f);
 			}
 		

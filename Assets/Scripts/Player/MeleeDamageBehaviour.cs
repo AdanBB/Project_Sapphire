@@ -42,7 +42,7 @@ public class MeleeDamageBehaviour : MonoBehaviour {
     {
         if (other.gameObject.tag == "Enemy")
         {
-            Debug.Log("detecta al enemigo");
+            
             if (myAnimator.GetBool("IsAttacking"))
             {
                 /*if (!other.gameObject.GetComponent<EnemyAI>().lastStantBool)
@@ -59,7 +59,7 @@ public class MeleeDamageBehaviour : MonoBehaviour {
 					
 					other.gameObject.GetComponent<EnemyAi2> ().AdDamage ((int)damage, weaponColor);
 
-					Debug.Log ("hace daño al enemigo");
+
 
 					hit = false;
 				}
