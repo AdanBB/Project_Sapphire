@@ -20,8 +20,10 @@ public class TintColor : MonoBehaviour {
 		if (isInside && Input.GetKeyDown (KeyCode.E)) {
 		
 			//Invoke ("colorSet", 0.1f);
-			gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
-			if (colorManager.colorsUnlock [idColor] != null) {
+
+			if (!colorManager.boolsColors[idColor]) {
+
+				gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
 				colorManager.adColor (idColor);
 
 			}
