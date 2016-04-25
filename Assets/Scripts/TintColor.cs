@@ -21,8 +21,11 @@ public class TintColor : MonoBehaviour {
 		
 			//Invoke ("colorSet", 0.1f);
 			gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
-			colorManager.adColor (idColor);
-		
+			if (colorManager.colorsUnlock [idColor] != null) {
+				colorManager.adColor (idColor);
+
+			}
+
 
 		}
 	
