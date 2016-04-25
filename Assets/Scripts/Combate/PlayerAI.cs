@@ -93,20 +93,28 @@ public class PlayerAI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            weaponImage.sprite = weaponTexture[0]; 
+            weaponImage.sprite = weaponTexture[0];
+
             weapon = Weapon.RANGE;	
+
 			swordGO.SetActive (false);
+
 			pistolGO.SetActive (true);
+
         }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        //if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+		if (Input.GetAxis("Mouse ScrollWheel") != 0f)
         {
+			ChangeColor ();
 			
             // scroll up
-			if(colorManager.colorsUnlock.Count == 1){
+			/*if(colorManager.colorsUnlock.Count == 1){
 				var colo = sword.colorOverLifetime;
 
 				colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
+
 				weaponColor = 1;
+
 				myRenderer.material.color = colorManager.colorsUnlock[0];
 
 				Invoke ("ChangeColor", 0.1f);
@@ -118,6 +126,7 @@ public class PlayerAI : MonoBehaviour
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f )
         {
 			
+			
             // scroll down
 			if(colorManager.colorsUnlock.Count == 2){
 				var colo = sword.colorOverLifetime;
@@ -126,7 +135,7 @@ public class PlayerAI : MonoBehaviour
 				myRenderer.material.color = colorManager.colorsUnlock[1];
 
 				Invoke ("ChangeColor", 0.1f);
-			}
+			}*/
 
 
             
@@ -219,6 +228,12 @@ public class PlayerAI : MonoBehaviour
 			}
 		
 		}
+		if (Input.GetAxis ("Mouse ScrollWheel") != 0f) {
+		
+			ChangeColor ();
+		
+		}
+
 
 
 
@@ -251,8 +266,29 @@ public class PlayerAI : MonoBehaviour
 	}
 	void ChangeColor(){
 	
-	
-		GetComponentInParent<AudioSource> ().PlayOneShot (SwordChangeColor);
+		if (weaponTipe == 1) {
+		
+			Debug.Log ("lel");
+			if (colorManager.colorsUnlock.Count >= 1) {
+			
+				var colo = sword.colorOverLifetime;
+				colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
+				weaponColor = 2;
+				myRenderer.material.color = colorManager.colorsUnlock[0];
+			}
+
+		
+		}
+		if (weaponTipe == 0) {
+
+			Debug.Log ("le!!");
+
+
+
+
+		}
+
+		//GetComponentInParent<AudioSource> ().PlayOneShot (SwordChangeColor);
 	
 	}
 }

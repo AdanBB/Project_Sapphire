@@ -11,10 +11,8 @@ public class EnemyAi2 : MonoBehaviour {
 	public float velocity;
 
 
-
 	public Color normal;
-	public Color blue;
-	public Color green;
+
 	private GameObject treeBody;
 
 	private int random;
@@ -38,6 +36,7 @@ public class EnemyAi2 : MonoBehaviour {
 
 	public GameObject[] deathParticles;
 
+	public ColorManager colorManager;
 	private Animator anim;
 	// Use this for initialization
     void Awake () {
@@ -153,14 +152,26 @@ public class EnemyAi2 : MonoBehaviour {
 
 		if ((health <= 10) && (!lastHit)) {
 
-			if (random == 1) {
-			
-				treeBody.GetComponent<Renderer> ().materials[1].color = green;
-			}
-			if (random == 2) {
+			if (colorManager.colorsUnlock.Count == 1) {
 
-				treeBody.GetComponent<Renderer> ().materials[1].color = blue;
+				treeBody.GetComponent<Renderer> ().materials [1].color = colorManager.colorsUnlock [0];
+			
 			}
+			if (colorManager.colorsUnlock.Count == 2) {
+
+
+				if (random == 2) {
+
+					treeBody.GetComponent<Renderer> ().materials[1].color = colorManager.colorsUnlock [0];
+				}
+				if (random == 1) {
+
+					treeBody.GetComponent<Renderer> ().materials[1].color = colorManager.colorsUnlock [1];
+				}
+
+			}
+
+
 				
 			lastHit = !lastHit;
 

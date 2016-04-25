@@ -8,22 +8,48 @@ public class TintColor : MonoBehaviour {
 
 	public int idColor;
 	public ColorManager colorManager;
+
+	public bool isInside;
 	// Use this for initialization
 	void Start () {
 	
+		isInside = false;
 	}
-
-    void OnTriggerStay(Collider other)
+	void FixedUpdate(){
+	
+		if (isInside && Input.GetKeyDown (KeyCode.E)) {
+		
+			//Invoke ("colorSet", 0.1f);
+			gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
+			colorManager.adColor (idColor);
+		
+		
+		}
+	
+	}
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
+		if (other.tag == ("Player") )
         {
+
+			isInside = true;
+
             //bullet.GetComponent<Renderer>().sharedMaterial.color = this.GetComponent<Renderer>().sharedMaterial.GetColor("_Color");
 
-			Invoke ("colorSet", 0.1f);
 
-			colorManager.adColor (idColor);
         }
     }
+	void OnTriggerExit(Collider other)
+	{
+		if (other.tag == ("Player") )
+		{
+			isInside = false;
+
+			//bullet.GetComponent<Renderer>().sharedMaterial.color = this.GetComponent<Renderer>().sharedMaterial.GetColor("_Color");
+
+
+		}
+	}
 
 	void colorSet(){
 	

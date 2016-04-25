@@ -6,6 +6,10 @@ public class CopsuleTint : MonoBehaviour {
     public PlayerAI playerAI;
     public Renderer weaponRederer;
     Image myImage;
+
+	public ColorWeapon colorWeapon;
+	public ColorManager colorManager;
+
 	// Use this for initialization
 	void Start () {
         myImage = GetComponent<Image>();
@@ -13,14 +17,21 @@ public class CopsuleTint : MonoBehaviour {
 
     void Update()
     {
-        if (playerAI.weaponTipe == 0)
+        /*if (playerAI.weaponTipe == 0)
         {
-            myImage.color = bulletRenderer.sharedMaterial.color;
+            //myImage.color = bulletRenderer.sharedMaterial.color;
         }
         else
         {
             myImage.color = weaponRederer.material.color;
-        }
+        }*/
         
+		if (colorManager.colorsUnlock.Count > 0) {
+		
+
+			myImage.color = bulletRenderer.sharedMaterial.color;
+		
+		
+		}
     }
 }
