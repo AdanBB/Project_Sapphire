@@ -103,10 +103,34 @@ public class PlayerAI : MonoBehaviour
 
         }
         //if (Input.GetAxis("Mouse ScrollWheel") > 0f)
-		if (Input.GetAxis("Mouse ScrollWheel") != 0f)
-        {
-			ChangeColor ();
-			
+
+		if(colorManager.colorsUnlock.Count != 0){
+
+			if(ColorWeapon.currentColor == 0){
+				var colo = sword.colorOverLifetime;
+
+				colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
+
+				weaponColor = 1;
+
+				myRenderer.material.color = colorManager.colorsUnlock[0];
+
+				
+			Debug.Log ("azul");
+			}
+			if(ColorWeapon.currentColor == 1){
+				var colo = sword.colorOverLifetime;
+				colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
+				weaponColor = 2;
+				myRenderer.material.color = colorManager.colorsUnlock[1];
+
+				Debug.Log ("green");
+
+
+			}
+		}
+
+
             // scroll up
 			/*if(colorManager.colorsUnlock.Count == 1){
 				var colo = sword.colorOverLifetime;
@@ -139,7 +163,7 @@ public class PlayerAI : MonoBehaviour
 
 
             
-        }
+        
 		if (Input.GetButtonDown("Fire1")&& (!isAttacking))
         {
 			attackNum = (int)UnityEngine.Random.Range (1, 4);
@@ -228,15 +252,6 @@ public class PlayerAI : MonoBehaviour
 			}
 		
 		}
-		if (Input.GetAxis ("Mouse ScrollWheel") != 0f) {
-		
-			ChangeColor ();
-		
-		}
-
-
-
-
 
     }
     void Fire()

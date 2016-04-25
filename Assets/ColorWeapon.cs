@@ -38,12 +38,12 @@ public class ColorWeapon : MonoBehaviour {
 				if (d > 0f) {
 				
 					if (currentColor < colorManager.colorsUnlock.Count - 1) {
-						Debug.Log ("arriba");
+						
 						currentColor++;
 					}
 				} else if (d < 0f) {
 					if (currentColor > 0) {
-						Debug.Log ("abajo");
+						
 						currentColor--;
 					}
 				}
