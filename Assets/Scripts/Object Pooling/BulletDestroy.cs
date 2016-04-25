@@ -30,10 +30,16 @@ public class BulletDestroy : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-		if ((other.gameObject.tag != "Info") || (other.gameObject.tag != "Platform"))
-        {
-			Invoke("Destroy", 0.05f);
-        }
+		if (other.tag != "Detection") {
+		
+			if ((other.gameObject.tag != "Info") || (other.gameObject.tag != "Platform"))
+			{
+				Debug.Log (other.tag);
+				Invoke("Destroy", 0.05f);
+			}
+		
+		}
+
     }
 
 	void Destroy ()

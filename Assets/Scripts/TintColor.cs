@@ -15,7 +15,7 @@ public class TintColor : MonoBehaviour {
 	
 		isInside = false;
 	}
-	void FixedUpdate(){
+	void Update(){
 	
 		if (isInside && Input.GetKeyDown (KeyCode.E)) {
 		
@@ -23,7 +23,7 @@ public class TintColor : MonoBehaviour {
 			gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
 			colorManager.adColor (idColor);
 		
-		
+
 		}
 	
 	}

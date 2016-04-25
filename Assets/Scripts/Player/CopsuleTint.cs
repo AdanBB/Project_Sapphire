@@ -29,9 +29,20 @@ public class CopsuleTint : MonoBehaviour {
 		if (colorManager.colorsUnlock.Count > 0) {
 		
 
-			myImage.color = bulletRenderer.sharedMaterial.color;
+			if (ColorWeapon.currentColor == 0) {
+
+				myImage.color = colorManager.colorsUnlock [0]; 
+
+			}
+			else if (ColorWeapon.currentColor == 1) {
+
+				myImage.color = colorManager.colorsUnlock [1];
+
+			}
+
 		
 		
 		}
+
     }
 }

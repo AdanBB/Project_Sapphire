@@ -243,11 +243,16 @@ public class PlayerAI : MonoBehaviour
     {
         GameObject obj = PoolingObjectScript.current.GetPooledObject();
 
+
+
+
         if (obj == null) return;
 
         obj.transform.position = transform.position;
         obj.transform.rotation = transform.rotation;
         obj.SetActive(true);
+
+		obj.GetComponent<BulletScript> ().ColorBullet(ColorWeapon.currentColor);
 
 		Instantiate (ShootParticle, transform.position, transform.rotation);
     }
@@ -266,29 +271,9 @@ public class PlayerAI : MonoBehaviour
 	}
 	void ChangeColor(){
 	
-		if (weaponTipe == 1) {
-		
-			Debug.Log ("lel");
-			if (colorManager.colorsUnlock.Count >= 1) {
-			
-				var colo = sword.colorOverLifetime;
-				colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
-				weaponColor = 2;
-				myRenderer.material.color = colorManager.colorsUnlock[0];
-			}
-
-		
-		}
-		if (weaponTipe == 0) {
-
-			Debug.Log ("le!!");
 
 
-
-
-		}
-
-		//GetComponentInParent<AudioSource> ().PlayOneShot (SwordChangeColor);
+		GetComponentInParent<AudioSource> ().PlayOneShot (SwordChangeColor);
 	
 	}
 }
