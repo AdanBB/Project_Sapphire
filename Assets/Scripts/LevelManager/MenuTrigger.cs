@@ -55,7 +55,7 @@ public class MenuTrigger : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Player") {
 
-			if (Input.GetKey (KeyCode.E)) 
+			if (Input.GetKey (KeyCode.E) && scene != "None") 
 			{
 				endActive = true;
 			}
