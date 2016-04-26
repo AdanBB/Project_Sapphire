@@ -206,12 +206,13 @@ public class EnemyAi2 : MonoBehaviour {
 		isAttacking = true;
 		counterAnim = 1.3f;
 
-		enemySound.PlayOneShot (enemyAttack);
 
 	
 	}
 	public void DamagePlayer(){
 	
 		player.GetComponent<CharacterStats> ().ApplyDamage ((float)damage);
+		enemySound.PlayOneShot (enemyAttack);
+
 	}
 }

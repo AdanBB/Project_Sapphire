@@ -42,23 +42,27 @@ public class PlayerAI : MonoBehaviour
 
 	public GameObject[] ShootParticles;
 
-	public AudioClip SwordChangeColor;
+	public AudioClip swordChangeColor;
 
 	public ColorManager colorManager;
+	public AudioSource playerAudio;
 
+	private int counterWeapon1;
+	private int counterWeapon2;
+	public bool isPlaying;
 
 	void Awake(){
 	
 		Pivot = GameObject.FindGameObjectWithTag ("Camera").transform.GetChild (0).gameObject;
 
-
+		//playerAudio = GameObject.FindGameObjectWithTag ("Player").GetComponent<AudioSource> ();
 
 	}
 
     void Start()
     {
 		isAiming = false;
-        weaponColor = 0;
+        weaponColor = 1;
         _firetime = fireTime;
 		isAttacking = false;
 		pivotTransform = new Vector3 (0.17f,2.83f,-5.08f);
@@ -68,8 +72,9 @@ public class PlayerAI : MonoBehaviour
 		framesDuration = 15;
 		swordGO.SetActive (false);
 		pistolGO.SetActive (true);
-
-
+		isPlaying = false;
+		counterWeapon1 = 0;
+		counterWeapon2 = 0;
 
     }
     // Update is called once per frame
@@ -104,65 +109,50 @@ public class PlayerAI : MonoBehaviour
         }
         //if (Input.GetAxis("Mouse ScrollWheel") > 0f)
 
-		if(colorManager.colorsUnlock.Count != 0){
+		if (colorManager.colorsUnlock.Count != 0) {
 
-			if(ColorWeapon.currentColor == 0){
-				var colo = sword.colorOverLifetime;
+			if (ColorWeapon.currentColor == 0) {
+				
+				if ( counterWeapon1 < 1) {
 
-				colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
+					ChangeColor ();
+					counterWeapon2 = 0;
+					if(counterWeapon1 != 1)
+						counterWeapon1++;
+				}			
+					var colo = sword.colorOverLifetime;
 
-				weaponColor = 1;
+					colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
 
-				myRenderer.material.color = colorManager.colorsUnlock[0];
+					weaponColor = 1;
+
+					myRenderer.material.color = colorManager.colorsUnlock [0];
+
 
 				
-			
 			}
-			if(ColorWeapon.currentColor == 1){
-				var colo = sword.colorOverLifetime;
-				colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
-				weaponColor = 2;
-				myRenderer.material.color = colorManager.colorsUnlock[1];
+			if (ColorWeapon.currentColor == 1) {
+
+				if ( counterWeapon2 < 1) {
+
+					ChangeColor ();
+					counterWeapon1 = 0;
+					if(counterWeapon2 != 1)
+						counterWeapon2++;
+				}
+
+
+					//GetComponentInParent<AudioSource>().PlayOneShot (swordChangeColor);
+					var colo = sword.colorOverLifetime;
+					colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
+					weaponColor = 2;
+					myRenderer.material.color = colorManager.colorsUnlock [1];
 
 
 
 
 			}
-		}
-
-
-            // scroll up
-			/*if(colorManager.colorsUnlock.Count == 1){
-				var colo = sword.colorOverLifetime;
-
-				colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
-
-				weaponColor = 1;
-
-				myRenderer.material.color = colorManager.colorsUnlock[0];
-
-				Invoke ("ChangeColor", 0.1f);
-			}
-
-
-
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f )
-        {
-			
-			
-            // scroll down
-			if(colorManager.colorsUnlock.Count == 2){
-				var colo = sword.colorOverLifetime;
-				colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
-				weaponColor = 2;
-				myRenderer.material.color = colorManager.colorsUnlock[1];
-
-				Invoke ("ChangeColor", 0.1f);
-			}*/
-
-
-            
+		}     
         
 		if (Input.GetButtonDown("Fire1")&& (!isAttacking))
         {
@@ -285,10 +275,8 @@ public class PlayerAI : MonoBehaviour
 	
 	}
 	void ChangeColor(){
-	
 
-
-		GetComponentInParent<AudioSource> ().PlayOneShot (SwordChangeColor);
+		GetComponentInParent<AudioSource>().PlayOneShot (swordChangeColor);
 	
 	}
 }
