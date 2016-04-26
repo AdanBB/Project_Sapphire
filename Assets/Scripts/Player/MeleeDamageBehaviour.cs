@@ -10,20 +10,27 @@ public class MeleeDamageBehaviour : MonoBehaviour {
 	private float counter;
     public Animator myAnimator;
 
+	public ColorManager colorManager;
+
     void Awake()
     {
 		hit = true;
     }
     // Use this for initialization
     void Start () {
+		
         weaponColor = playerAI.weaponColor;   
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-        weaponColor = playerAI.weaponColor;
 
+		Debug.Log (weaponColor);
+		if (colorManager.colorsUnlock.Count != 0) {
+			weaponColor = playerAI.weaponColor;
+		} else
+			weaponColor = 0;
 		if (!hit) {
 		
 			counter += Time.deltaTime;
@@ -59,7 +66,7 @@ public class MeleeDamageBehaviour : MonoBehaviour {
 					
 					other.gameObject.GetComponent<EnemyAi2> ().AdDamage ((int)damage, weaponColor);
 
-
+					Debug.Log ("yesss");
 
 					hit = false;
 				}
