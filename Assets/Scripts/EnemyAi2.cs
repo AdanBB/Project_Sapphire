@@ -38,6 +38,10 @@ public class EnemyAi2 : MonoBehaviour {
 
 	public ColorManager colorManager;
 	private Animator anim;
+
+	public AudioClip enemyAttack;
+	public AudioClip lastHitSound;
+	private AudioSource enemySound;
 	// Use this for initialization
     void Awake () {
 
@@ -47,7 +51,7 @@ public class EnemyAi2 : MonoBehaviour {
 		detectionCollider = GetComponentInChildren<SphereCollider> ();
 		treeBody = transform.GetChild (2).gameObject;
 		anim = GetComponent<Animator> ();
-
+		enemySound = GetComponent<AudioSource> ();
     }
 
 	void Start () {
@@ -201,6 +205,8 @@ public class EnemyAi2 : MonoBehaviour {
 		anim.SetBool ("IsAttack", true);
 		isAttacking = true;
 		counterAnim = 1.3f;
+
+		enemySound.PlayOneShot (enemyAttack);
 
 	
 	}
