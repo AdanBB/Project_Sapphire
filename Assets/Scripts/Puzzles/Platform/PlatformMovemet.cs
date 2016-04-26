@@ -81,7 +81,6 @@ public class PlatformMovemet : MonoBehaviour
         }
         if (myRenderer.material.color == hotizontalColor)
         {
-			Debug.Log ("Hor");
             HMovement();
         }
     }

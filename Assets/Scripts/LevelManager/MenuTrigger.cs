@@ -8,6 +8,7 @@ public class MenuTrigger : MonoBehaviour {
 	public string scene;
 	public Image black;
 	public Image level;
+    public Image fondo;
 	private float count;
 	private float endcount;
 	private bool faderActive;
@@ -25,7 +26,7 @@ public class MenuTrigger : MonoBehaviour {
 	{
 		if (faderActive == true)
 		{
-			EndFade(level);
+			EndFade(level, fondo);
 		}
 		if (endActive == true) 
 		{
@@ -33,7 +34,7 @@ public class MenuTrigger : MonoBehaviour {
 		}
 		if (dissapear == true) {
 			
-			StartFade (level);
+			StartFade (level, fondo);
 		}
 	}
 	void OnTriggerEnter(Collider other)
@@ -69,11 +70,19 @@ public class MenuTrigger : MonoBehaviour {
 		}
 	}
 
-	public void EndFade(Image toFade)
-	{
-		count = count + (1f/100f);
-		toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, count);
-	}
+    public void EndFade(Image toFade, Image fondo)
+    {
+        if (count < 1)
+        {
+            count = count + (1f / 100f);
+            toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, count);
+
+            if (count < 0.75f)
+            {
+                fondo.color = new Color(fondo.color.r, fondo.color.g, fondo.color.b, count);
+            }
+        }
+    }
 
 	public void NextScene(Image toFade)
 	{
@@ -86,9 +95,15 @@ public class MenuTrigger : MonoBehaviour {
 		}
 	}
 
-	public void StartFade(Image toFade)
+	public void StartFade(Image toFade, Image fondo)
 	{
-		count = count - (1f/100f);
-		toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, count);
+        if (count > 0)
+        {
+            count = count - (1f / 100f);
+            toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, count);
+            fondo.color = new Color(fondo.color.r, fondo.color.g, fondo.color.b, count);
+        }
+		
+		
 	}
 }
