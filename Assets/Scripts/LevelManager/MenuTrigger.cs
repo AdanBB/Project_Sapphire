@@ -9,13 +9,16 @@ public class MenuTrigger : MonoBehaviour {
 	public Image black;
 	public Image level;
 	private float count;
+	private float endcount;
 	private bool faderActive;
 	private bool endActive;
+	private bool dissapear;
 
 	void Awake()
 	{
 		faderActive = false;
 		endActive = false;
+		dissapear = false;
 	}
 
 	void Update()
@@ -26,14 +29,30 @@ public class MenuTrigger : MonoBehaviour {
 		}
 		if (endActive == true) 
 		{
-			EndFade(black);
+			NextScene(black);
+		}
+		if (dissapear == true) {
+			
+			StartFade (level);
 		}
 	}
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Player") {
-			
+
+			dissapear = false;
 			faderActive = true;
+
+			if (Input.GetKey (KeyCode.E)) 
+			{
+				endActive = true;
+			}
+		}
+	}
+
+	void OnTriggerStay(Collider other)
+	{
+		if (other.gameObject.tag == "Player") {
 
 			if (Input.GetKey (KeyCode.E)) 
 			{
@@ -46,16 +65,22 @@ public class MenuTrigger : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Player") {
 			faderActive = false;
-			StartFade (level);
+			dissapear = true;
 		}
 	}
 
 	public void EndFade(Image toFade)
 	{
-		count = count + (1f/120f);
+		count = count + (1f/100f);
 		toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, count);
+	}
 
-		if (toFade.color.a >= 0.95f)
+	public void NextScene(Image toFade)
+	{
+		endcount = endcount + (1f/100f);
+		toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, endcount);
+
+		if (toFade.color.a > 0.95f)
 		{
 			SceneManager.LoadScene(scene);
 		}
@@ -63,12 +88,7 @@ public class MenuTrigger : MonoBehaviour {
 
 	public void StartFade(Image toFade)
 	{
-		count = count + (1f/120f);
+		count = count - (1f/100f);
 		toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, count);
-
-		if (toFade.color.a >= 0.95f)
-		{
-			SceneManager.LoadScene(scene);
-		}
 	}
 }

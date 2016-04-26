@@ -80,7 +80,7 @@ public class playerController : MonoBehaviour
 			// Calculate how fast we should be moving
 			Vector3 targetVelocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 			targetVelocity = transform.TransformDirection (targetVelocity);
-			targetVelocity *= (speed - 2);
+			targetVelocity *= (speed  -1);
 			if (Input.GetButton ("Vertical")) {
 				myAnimator.SetBool ("IsMoving", true);
 				_isMoving = true;
@@ -91,8 +91,8 @@ public class playerController : MonoBehaviour
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rb.velocity;
 			Vector3 velocityChange = (targetVelocity - velocity);
-			velocityChange.x = Mathf.Clamp (velocityChange.x, -maxVelocityChange, maxVelocityChange);
-			velocityChange.z = Mathf.Clamp (velocityChange.z, -maxVelocityChange, maxVelocityChange);
+			velocityChange.x = Mathf.Clamp (velocityChange.x, -maxVelocityChange , maxVelocityChange );
+			velocityChange.z = Mathf.Clamp (velocityChange.z, -maxVelocityChange , maxVelocityChange );
 			velocityChange.y = 0;
 			rb.AddForce (velocityChange, ForceMode.VelocityChange);
 
@@ -187,6 +187,7 @@ public class playerController : MonoBehaviour
 		if (other.tag == "Floor" || other.tag == "Platform") {
 			if (!isJumping) {
 				myAnimator.SetBool ("IsGrounded", true);
+
 				grounded = true;
 
 			}

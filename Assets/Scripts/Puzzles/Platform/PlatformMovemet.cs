@@ -76,10 +76,12 @@ public class PlatformMovemet : MonoBehaviour
     {
         if (myRenderer.material.color == verticalColor)
         {
+			
             VMovement();
         }
         if (myRenderer.material.color == hotizontalColor)
         {
+			Debug.Log ("Hor");
             HMovement();
         }
     }

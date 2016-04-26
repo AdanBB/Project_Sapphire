@@ -51,6 +51,7 @@ public class PlayerAI : MonoBehaviour
 	private int counterWeapon1;
 	private int counterWeapon2;
 
+	public playerController PlayerController;
 
 
 	void Awake(){
@@ -155,8 +156,9 @@ public class PlayerAI : MonoBehaviour
 			}
 		}     
         
-		if (Input.GetButtonDown("Fire1")&& (!isAttacking))
+		if (Input.GetButtonDown("Fire1")&& (!isAttacking) && PlayerController.grounded)
         {
+			Debug.Log ("lel");
 			attackNum = (int)UnityEngine.Random.Range (1, 4);
 
 			myAnimator.SetInteger ("Attack", attackNum );
