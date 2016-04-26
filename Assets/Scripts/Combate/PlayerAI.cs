@@ -46,10 +46,12 @@ public class PlayerAI : MonoBehaviour
 
 	public ColorManager colorManager;
 	public AudioSource playerAudio;
+	public AudioClip shootSound;
 
 	private int counterWeapon1;
 	private int counterWeapon2;
-	public bool isPlaying;
+
+
 
 	void Awake(){
 	
@@ -72,7 +74,6 @@ public class PlayerAI : MonoBehaviour
 		framesDuration = 15;
 		swordGO.SetActive (false);
 		pistolGO.SetActive (true);
-		isPlaying = false;
 		counterWeapon1 = 0;
 		counterWeapon2 = 0;
 
@@ -249,13 +250,13 @@ public class PlayerAI : MonoBehaviour
         GameObject obj = PoolingObjectScript.current.GetPooledObject();
 
 
-
-
         if (obj == null) return;
 
         obj.transform.position = transform.position;
         obj.transform.rotation = transform.rotation;
         obj.SetActive(true);
+
+		playerAudio.PlayOneShot (shootSound);
 
 		obj.GetComponent<BulletScript> ().ColorBullet(ColorWeapon.currentColor);
 

@@ -18,7 +18,6 @@ public class FootStepsCollisionsEnemy : MonoBehaviour {
 
 		if (other.tag == "Floor" ) {
 
-			Debug.Log ("lel");
 			Instantiate (footStepsParticles,new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y- 0.07f , gameObject.transform.position.z), Quaternion.Euler (transform.rotation.x + 90, transform.rotation.y, transform.rotation.z));
 			Invoke ("PlaySounds", 0.01f);
 
