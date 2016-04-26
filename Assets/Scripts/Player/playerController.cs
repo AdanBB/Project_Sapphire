@@ -26,6 +26,7 @@ public class playerController : MonoBehaviour
 	private GameObject player;
 
 	public AudioClip jumpSound;
+	public ParticleSystem jumpParticles;
 
     void Awake()
     {
@@ -195,6 +196,17 @@ public class playerController : MonoBehaviour
 
 
 	}
+	void OnTriggerEnter( Collider other){
+		if (other.tag == "Floor" || other.tag == "Platform") {
+			if (!isJumping) {
+			
+				Instantiate (jumpParticles, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z) ,Quaternion.Euler (transform.rotation.x + 90, transform.rotation.y, transform.rotation.z));
+			
+			
+			}
+		}
+	
+	}
 	float CalculateJumpVerticalSpeed()
 	{
 		// From the jump height and gravity we deduce the upwards speed 
@@ -211,8 +223,12 @@ public class playerController : MonoBehaviour
 		player.GetComponent<AudioSource> ().PlayOneShot (jumpSound);
 
 
+
+
+
 	
 	}
+
 
 	void CalculateDirection(){
 

@@ -177,7 +177,7 @@ public class EnemyAi2 : MonoBehaviour {
 
 
 		}else if (lastHit ) {
-		
+
 			if (random == color) {
 			
 				if (random == 2)

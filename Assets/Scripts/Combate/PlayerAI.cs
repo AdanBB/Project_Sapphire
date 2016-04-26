@@ -171,7 +171,7 @@ public class PlayerAI : MonoBehaviour
 			myAnimator.SetInteger ("Attack", attackNum );
             myAnimator.SetBool("IsAttacking", true);
 			isAttacking = true;
-			Invoke ("FireRestart", 1f);
+			Invoke ("FireRestart", 0.5f);
         }
 
 
