@@ -160,6 +160,12 @@ public class EnemyAi2 : MonoBehaviour {
 
 		if ((health <= 10) && (!lastHit)) {
 
+			if (colorManager.colorsUnlock.Count == 0) {
+
+				treeBody.GetComponent<Renderer> ().materials [1].color = normal;
+
+				Debug.Log ("me pinto");
+			}
 
 			if (colorManager.colorsUnlock.Count == 1) {
 
@@ -168,8 +174,6 @@ public class EnemyAi2 : MonoBehaviour {
 				Debug.Log ("me pinto");
 			}
 			if (colorManager.colorsUnlock.Count == 2) {
-
-
 				if (random == 1) {
 
 					treeBody.GetComponent<Renderer> ().materials[1].color = colorManager.colorsUnlock [0];
@@ -191,12 +195,20 @@ public class EnemyAi2 : MonoBehaviour {
 			Debug.Log (color);
 			Debug.Log (random);
 
+			if (colorManager.colorsUnlock.Count == 0) {
+
+				Instantiate (deathParticles[2], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
+				Destroy (this.gameObject);
+
+
+			}
+
 			if (colorManager.colorsUnlock.Count == 1) {
 
 				if (random == 2)
-					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
-				if (random == 1)
 					Instantiate (deathParticles[1], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
+				if (random == 1)
+					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
 				Destroy (this.gameObject);
 
 
@@ -205,9 +217,9 @@ public class EnemyAi2 : MonoBehaviour {
 			if (random == color) {
 			
 				if (random == 2)
-					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
-				if (random == 1)
 					Instantiate (deathParticles[1], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
+				if (random == 1)
+					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
 				Destroy (this.gameObject);
 			
 			}
