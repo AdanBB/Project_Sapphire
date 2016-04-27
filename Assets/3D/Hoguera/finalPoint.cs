@@ -21,9 +21,12 @@ public class finalPoint : MonoBehaviour {
             EndFade();
         }
     }
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        faderActive = true;
+        if (other.tag == "Player")
+        {
+            faderActive = true;
+        }
     }
 
     public void EndFade()
