@@ -5,11 +5,11 @@ public class FootStepsCollisions : MonoBehaviour {
 
 	public GameObject footStepsParticles;
 	public AudioClip footStepsSound;
-	private GameObject player;
+	public GameObject player;
 	// Use this for initialization
 	void Awake(){
 
-		player = GameObject.FindGameObjectWithTag ("Player");
+		//player = GameObject.FindGameObjectWithTag ("Player");
 
 
 	}
