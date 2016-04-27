@@ -32,7 +32,7 @@ public class BulletDestroy : MonoBehaviour {
     {
 		if (other.tag != "Detection") {
 		
-			if ((other.gameObject.tag != "Info") || (other.gameObject.tag != "Platform"))
+			if ((other.gameObject.tag != "Info") || (other.gameObject.tag == "Platform"))
 			{
 				Invoke("Destroy", 0.05f);
 			}

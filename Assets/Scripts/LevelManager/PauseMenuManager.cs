@@ -6,36 +6,54 @@ public class PauseMenuManager : MonoBehaviour {
     public PlayerAI playerAI;
     public GameObject player;
 
+	private bool isPaused;
+
 	// Use this for initialization
 	void Start () {
 	
+		isPaused = true;
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-		
+	void Update () {
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+			if (!isPaused) {
+				
+				isPaused = !isPaused;
+				pauseMenu.SetActive (false);
+			
+			} else if (isPaused) {
+				
+				isPaused = !isPaused;
+
+				pauseMenu.SetActive(true);
+			
+			
+			}
+
+
             
-            Time.timeScale = 0;
             
-            pauseMenu.SetActive(true);
             
         }
 	}
     public void ResumeBotton()
     {
-       
-        pauseMenu.SetActive(false);
+        
         Time.timeScale = 1;
+		pauseMenu.SetActive(false);
     }
     public void MainMenuBotton()
     {
-        player.SetActive(true);
-        playerAI.enabled = true;
-        pauseMenu.SetActive(false);
+      
         Time.timeScale = 1;
+		Debug.Log ("dsadsa");
         LevelManager.NextScene("menuScreen");
+		player.SetActive(true);
+		playerAI.enabled = true;
+		pauseMenu.SetActive(false);
     }
     public void ExitGameBotton()
     {
