@@ -52,6 +52,8 @@ public class EnemyAi2 : MonoBehaviour {
 		treeBody = transform.GetChild (2).gameObject;
 		anim = GetComponent<Animator> ();
 		enemySound = GetComponent<AudioSource> ();
+
+		colorManager = GameObject.FindGameObjectWithTag ("ColorManager").GetComponent<ColorManager> ();
     }
 
 	void Start () {
@@ -148,6 +150,8 @@ public class EnemyAi2 : MonoBehaviour {
     }
 	public void AdDamage(int Damage, int color){
 
+
+
 		if ((!lastHit) && (health >= 10)) {
 
 			health = health - Damage;
@@ -156,11 +160,12 @@ public class EnemyAi2 : MonoBehaviour {
 
 		if ((health <= 10) && (!lastHit)) {
 
+
 			if (colorManager.colorsUnlock.Count == 1) {
 
-				treeBody.GetComponent<Renderer> ().materials [1].color = colorManager.colorsUnlock [0];
+				treeBody.GetComponent<Renderer> ().materials [1].color = colorManager.colors [0];
 
-			
+				Debug.Log ("me pinto");
 			}
 			if (colorManager.colorsUnlock.Count == 2) {
 
@@ -177,7 +182,7 @@ public class EnemyAi2 : MonoBehaviour {
 			}
 
 
-				
+
 			lastHit = !lastHit;
 
 
