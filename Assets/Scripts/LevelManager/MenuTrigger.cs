@@ -43,11 +43,6 @@ public class MenuTrigger : MonoBehaviour {
 
 			dissapear = false;
 			faderActive = true;
-
-			if (Input.GetKey (KeyCode.E)) 
-			{
-				endActive = true;
-			}
 		}
 	}
 
@@ -55,7 +50,7 @@ public class MenuTrigger : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Player") {
 
-			if (Input.GetKey (KeyCode.E) && scene != "None") 
+			if (Input.GetKey (KeyCode.E) && black != null) 
 			{
 				endActive = true;
 			}
