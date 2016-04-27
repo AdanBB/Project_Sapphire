@@ -21,38 +21,62 @@ public class PauseMenuManager : MonoBehaviour {
         {
 			if (!isPaused) {
 				
-
-
 				SetPause ();
 
 
-
-
-
-
-
-			
 			} else if (isPaused) {
-				
-
 
 				SetGame ();
 
-			
-			
 			}
-
-
-            
-            
-            
+  
         }
+		if (Input.GetKeyDown(KeyCode.N))
+		{
+			if (isPaused) {
+				SetGame ();
+				if (Application.loadedLevel == 5) {
+				
+					Application.LoadLevel (8);
+
+				}
+				if (Application.loadedLevel == 7) {
+
+					Application.LoadLevel (4);
+
+				}
+
+			} 
+
+		}
+		if (Input.GetKeyDown(KeyCode.M))
+		{
+			if (isPaused) {
+				SetGame ();
+				Application.LoadLevel (6);
+
+
+
+			} 
+
+		}
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			if (isPaused) {
+				SetGame ();
+
+				Application.Quit();
+
+
+			} 
+
+		}
 	}
     public void ResumeBotton()
     {
-        
-       
+
 		SetGame ();
+
     }
     public void MainMenuBotton()
     {
@@ -72,13 +96,13 @@ public class PauseMenuManager : MonoBehaviour {
 
 		isPaused = true;
 		Time.timeScale = 0;
-		pauseMenu.SetActive (true);
+		//pauseMenu.SetActive (true);
 
 	}
 	void SetGame(){
 
 		isPaused = false;
-		pauseMenu.SetActive (false);
+		//pauseMenu.SetActive (false);
 		Time.timeScale = 1;
 	}
 }
