@@ -5,6 +5,7 @@ public class PauseMenuManager : MonoBehaviour {
 
     public PlayerAI playerAI;
     public GameObject player;
+    public GameObject pause;
 
     public string nextLevel;
     public string menuLevel;
@@ -78,11 +79,13 @@ public class PauseMenuManager : MonoBehaviour {
     }
 	void SetPause(){
 
+        pause.SetActive(true);
 		isPaused = true;
 		Time.timeScale = 0;
 	}
 	void SetGame(){
 
+        pause.SetActive(false);
 		isPaused = false;
 		Time.timeScale = 1;
 	}
