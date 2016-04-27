@@ -31,7 +31,7 @@ public class finalPoint : MonoBehaviour {
 
     public void EndFade()
     {
-        count = count + (1f/120f);
+        count = count + (1f/100f);
         fader.color = new Color(fader.color.r, fader.color.g, fader.color.b, count);
 
         if (fader.color.a >= 0.95f)
