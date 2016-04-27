@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuTrigger : MonoBehaviour {
 
+    public bool exit;
 	public string scene;
 	public Image black;
 	public Image level;
     public Image fondo;
+    public Image pressE;
 	private float count;
 	private float endcount;
 	private bool faderActive;
@@ -26,7 +28,7 @@ public class MenuTrigger : MonoBehaviour {
 	{
 		if (faderActive == true)
 		{
-			EndFade(level, fondo);
+			EndFade(level, fondo, pressE);
 		}
 		if (endActive == true) 
 		{
@@ -34,7 +36,7 @@ public class MenuTrigger : MonoBehaviour {
 		}
 		if (dissapear == true) {
 			
-			StartFade (level, fondo);
+			StartFade (level, fondo, pressE);
 		}
 	}
 	void OnTriggerEnter(Collider other)
@@ -65,12 +67,16 @@ public class MenuTrigger : MonoBehaviour {
 		}
 	}
 
-    public void EndFade(Image toFade, Image fondo)
+    public void EndFade(Image toFade, Image fondo, Image press)
     {
         if (count < 1)
         {
             count = count + (1f / 100f);
             toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, count);
+            if (press != null)
+            {
+                press.color = new Color(press.color.r, press.color.g, press.color.b, count);
+            }
 
             if (count < 0.75f)
             {
@@ -86,19 +92,33 @@ public class MenuTrigger : MonoBehaviour {
 
 		if (toFade.color.a > 0.95f)
 		{
-			SceneManager.LoadScene(scene);
+            if (exit == true)
+            {
+                Application.Quit();
+            }
+            if (exit == false)
+            {
+                SceneManager.LoadScene(scene);
+            }
 		}
 	}
 
-	public void StartFade(Image toFade, Image fondo)
+	public void StartFade(Image toFade, Image fondo, Image press)
 	{
         if (count > 0)
         {
             count = count - (1f / 100f);
             toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, count);
-            fondo.color = new Color(fondo.color.r, fondo.color.g, fondo.color.b, count);
+            if (press != null)
+            {
+                press.color = new Color(press.color.r, press.color.g, press.color.b, count);
+            }
+            if (count < 0.75f)
+            {
+                fondo.color = new Color(fondo.color.r, fondo.color.g, fondo.color.b, count);
+            }
         }
-		
-		
-	}
+
+
+    }
 }
