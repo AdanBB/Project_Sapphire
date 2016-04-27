@@ -34,7 +34,7 @@ public class finalPoint : MonoBehaviour {
         count = count + (1f/100f);
         fader.color = new Color(fader.color.r, fader.color.g, fader.color.b, count);
 
-        if (fader.color.a >= 0.95f)
+        if (fader.color.a >= 0.98f)
         {
             SceneManager.LoadScene(scene);
         }
