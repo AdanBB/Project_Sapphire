@@ -98,7 +98,7 @@ public class PlayerAI : MonoBehaviour
     }
     public void MeleWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             weaponImage.sprite = weaponTexture[0];
 
@@ -173,7 +173,7 @@ public class PlayerAI : MonoBehaviour
 
     public void RangeWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             weaponImage.sprite = weaponTexture[1];
             weapon = Weapon.MELEE;
@@ -271,11 +271,7 @@ public class PlayerAI : MonoBehaviour
 	
 	}
 	void Aim(){
-		
 
-
-
-	
 	}
 	void ChangeColor(){
 
