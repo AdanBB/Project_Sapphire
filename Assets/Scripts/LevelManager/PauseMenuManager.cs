@@ -21,14 +21,23 @@ public class PauseMenuManager : MonoBehaviour {
         {
 			if (!isPaused) {
 				
-				isPaused = !isPaused;
-				pauseMenu.SetActive (false);
+
+
+				SetPause ();
+
+
+
+
+
+
+
 			
 			} else if (isPaused) {
 				
-				isPaused = !isPaused;
 
-				pauseMenu.SetActive(true);
+
+				SetGame ();
+
 			
 			
 			}
@@ -42,8 +51,8 @@ public class PauseMenuManager : MonoBehaviour {
     public void ResumeBotton()
     {
         
-        Time.timeScale = 1;
-		pauseMenu.SetActive(false);
+       
+		SetGame ();
     }
     public void MainMenuBotton()
     {
@@ -59,4 +68,17 @@ public class PauseMenuManager : MonoBehaviour {
     {
         Application.Quit();
     }
+	void SetPause(){
+
+		isPaused = true;
+		Time.timeScale = 0;
+		pauseMenu.SetActive (true);
+
+	}
+	void SetGame(){
+
+		isPaused = false;
+		pauseMenu.SetActive (false);
+		Time.timeScale = 1;
+	}
 }
