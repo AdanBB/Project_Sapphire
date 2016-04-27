@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour {
 
-    public GameObject pauseMenu;
     public PlayerAI playerAI;
     public GameObject player;
+
+    public string nextLevel;
+    public string menuLevel;
 
 	private bool isPaused;
 
@@ -35,28 +38,15 @@ public class PauseMenuManager : MonoBehaviour {
 		{
 			if (isPaused) {
 				SetGame ();
-				if (Application.loadedLevel == 5) {
-				
-					Application.LoadLevel (8);
-
-				}
-				if (Application.loadedLevel == 7) {
-
-					Application.LoadLevel (4);
-
-				}
-
-			} 
+    			SceneManager.LoadScene(nextLevel);
+			}
 
 		}
 		if (Input.GetKeyDown(KeyCode.M))
 		{
 			if (isPaused) {
 				SetGame ();
-				Application.LoadLevel (6);
-
-
-
+                SceneManager.LoadScene(menuLevel);
 			} 
 
 		}
@@ -64,12 +54,8 @@ public class PauseMenuManager : MonoBehaviour {
 		{
 			if (isPaused) {
 				SetGame ();
-
 				Application.Quit();
-
-
 			} 
-
 		}
 	}
     public void ResumeBotton()
@@ -82,11 +68,9 @@ public class PauseMenuManager : MonoBehaviour {
     {
       
         Time.timeScale = 1;
-		Debug.Log ("dsadsa");
         LevelManager.NextScene("menuScreen");
 		player.SetActive(true);
 		playerAI.enabled = true;
-		pauseMenu.SetActive(false);
     }
     public void ExitGameBotton()
     {
@@ -96,13 +80,10 @@ public class PauseMenuManager : MonoBehaviour {
 
 		isPaused = true;
 		Time.timeScale = 0;
-		//pauseMenu.SetActive (true);
-
 	}
 	void SetGame(){
 
 		isPaused = false;
-		//pauseMenu.SetActive (false);
 		Time.timeScale = 1;
 	}
 }
