@@ -81,7 +81,7 @@ public class playerController : MonoBehaviour
 			Vector3 targetVelocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 			targetVelocity = transform.TransformDirection (targetVelocity);
 			targetVelocity *= (speed  -1);
-			if (Input.GetButton ("Vertical")) {
+			if (Input.GetButton("Vertical") || Input.GetButton("Horizontal")) {
 				myAnimator.SetBool ("IsMoving", true);
 				_isMoving = true;
 			} else {
@@ -172,12 +172,12 @@ public class playerController : MonoBehaviour
 		
 		}
 		if (isRotating) {
-		
-			//Rotate ();
-		
-		}
-		// We apply gravity manually for more tuning control
-		rb.AddForce (new Vector3 (0, -gravity * rb.mass, 0));
+
+            //Rotate ();
+
+        }
+        // We apply gravity manually for more tuning control
+        rb.AddForce (new Vector3 (0, -gravity * rb.mass, 0));
 
 		grounded = false;
 
@@ -326,9 +326,5 @@ public class playerController : MonoBehaviour
 
 			transform.parent.transform.rotation = Quaternion.Euler (0, (direction.rotationEuler.y - 135) %360, 0 );
 		}
-
-
-
-
 	}
 }
