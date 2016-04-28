@@ -96,7 +96,6 @@ public class PlayerAI : MonoBehaviour
         }
 
     }
-
     public void MeleWeapon()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -150,11 +149,16 @@ public class PlayerAI : MonoBehaviour
 					colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
 					weaponColor = 2;
 					myRenderer.material.color = colorManager.colorsUnlock [1];
+
+
+
+
 			}
 		}     
         
 		if (Input.GetButtonDown("Fire1")&& (!isAttacking) && PlayerController.grounded)
         {
+			Debug.Log ("lel");
 			attackNum = (int)UnityEngine.Random.Range (1, 4);
 
 			myAnimator.SetInteger ("Attack", attackNum );
@@ -162,6 +166,9 @@ public class PlayerAI : MonoBehaviour
 			isAttacking = true;
 			Invoke ("FireRestart", 0.5f);
         }
+
+
+
     }
 
     public void RangeWeapon()

@@ -71,6 +71,10 @@ public class footSteps : MonoBehaviour
 			splash.GetComponent<SpriteRenderer> ().color = _stepColor;
 			//Instantiate (splash, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z), Quaternion.Euler (rotation.x + 90, rotation.y+ Random.Range(0,360), rotation.z));
 			instantiatedPrefab = Instantiate(splash, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z), Quaternion.Euler (rotation.x + 90, rotation.y+ Random.Range(0,360), rotation.z)) as GameObject;
+			random = Random.Range (1, 3);
+			instantiatedPrefab.transform.localScale = new Vector3(random ,random,1);
 		}
+
 	}
+
 }
