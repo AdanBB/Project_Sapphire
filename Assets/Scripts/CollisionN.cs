@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Collision : MonoBehaviour {
+public class CollisionN : MonoBehaviour {
 	private Rigidbody rb;
 
 	public playerController playerCont;

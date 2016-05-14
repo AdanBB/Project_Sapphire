@@ -8,12 +8,12 @@ public class playerController : MonoBehaviour
 
     public Rigidbody rb;
 
-    public float speed = 10.0f;
+    public float speed;
 	private float _speed;
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
     public bool canJump = true;
-    public float jumpHeight = 2.0f;
+    public float jumpHeight;
     public bool grounded = false;
     public bool isInvulnerable;
     public bool _isMoving;
@@ -45,33 +45,27 @@ public class playerController : MonoBehaviour
         _isMoving = false;
     }
 
-	void FixedUpdate(){
-
-
-		if (weapon.isAiming) {
-
+	void FixedUpdate()
+	{
+		if (weapon.isAiming) 
+		{
 			transform.parent.transform.rotation = Quaternion.Euler (0, (direction.rotationEuler.y) %360, 0 );
 			myAnimator.speed = 0.7f;
 			speed = 3;
-		
-		} else if (!weapon.isAiming) {
-		
-		
+		} 
+		else if (!weapon.isAiming)
+		{
 			speed = _speed;
 			myAnimator.speed = 1f;
 		}
-
-
-        if (weapon.isAttacking) {
-		
+        if (weapon.isAttacking) 
+		{
 			speed = 0;
-		
-		} else if (speed == 0){
-
+		}
+		else if (speed == 0)
+		{
 			speed = _speed;
 		}
-			
-
 		if (Input.GetKeyDown (KeyCode.G)) {
 			//gravity = 0;
 			isInvulnerable = !isInvulnerable;
@@ -81,13 +75,18 @@ public class playerController : MonoBehaviour
 			Vector3 targetVelocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 			targetVelocity = transform.TransformDirection (targetVelocity);
 			targetVelocity *= (speed  -1);
-			if (Input.GetButton ("Vertical")) {
+
+			if (Input.GetButton ("Vertical")) 
+			{
 				myAnimator.SetBool ("IsMoving", true);
 				_isMoving = true;
-			} else {
+			} 
+			else 
+			{
 				myAnimator.SetBool ("IsMoving", false);
 				_isMoving = false;
 			}
+
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rb.velocity;
 			Vector3 velocityChange = (targetVelocity - velocity);
@@ -96,19 +95,26 @@ public class playerController : MonoBehaviour
 			velocityChange.y = 0;
 			rb.AddForce (velocityChange, ForceMode.VelocityChange);
 
-		} else if (grounded && (!weapon.isAiming)) {
+		} 
+		else if (grounded && (!weapon.isAiming)) 
+		{
 			
 			// Calculate how fast we should be moving
 			Vector3 targetVelocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical"));
 			targetVelocity = transform.TransformDirection (targetVelocity);
 			targetVelocity *= speed;
-			if (Input.GetButton ("Vertical") || Input.GetButton ("Horizontal")) {
+
+			if (Input.GetButton ("Vertical") || Input.GetButton ("Horizontal"))
+			{
 				myAnimator.SetBool ("IsMoving", true);
 				_isMoving = true;
-			} else {
+			} 
+			else
+			{
 				myAnimator.SetBool ("IsMoving", false);
 				_isMoving = false;
 			}
+
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rb.velocity;
 			Vector3 velocityChange = (targetVelocity - velocity);
@@ -118,30 +124,34 @@ public class playerController : MonoBehaviour
 			rb.AddForce (velocityChange, ForceMode.VelocityChange);
 
 			CalculateDirection ();
-				
 
 			// Jump
-			if (canJump && Input.GetButton ("Jump")) {
-
+			if (canJump && Input.GetButton ("Jump")) 
+			{				
 				Invoke ("Jump", 0.2f);
 				isJumping = true;
 				myAnimator.SetBool ("IsGrounded", false);
-
 			}
 
-		} else if (grounded && (weapon.isAiming)) {
+		} 
+		else if (grounded && (weapon.isAiming)) 
+		{
 
 			// Calculate how fast we should be moving
 			Vector3 targetVelocity = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis ("Vertical"));
 			targetVelocity = transform.TransformDirection (targetVelocity);
 			targetVelocity *= speed;
-			if (Input.GetButton ("Vertical") || Input.GetButton ("Horizontal")) {
+			if (Input.GetButton ("Vertical") || Input.GetButton ("Horizontal")) 
+			{
 				myAnimator.SetBool ("IsMoving", true);
 				_isMoving = true;
-			} else {
+			} 
+			else 
+			{
 				myAnimator.SetBool ("IsMoving", false);
 				_isMoving = false;
 			}
+
 			// Apply a force that attempts to reach our target velocity
 			Vector3 velocity = rb.velocity;
 			Vector3 velocityChange = (targetVelocity - velocity);
@@ -152,30 +162,20 @@ public class playerController : MonoBehaviour
 
 			CalculateDirection ();
 
-
 			// Jump
-			if (canJump && Input.GetButton ("Jump")) {
-
+			if (canJump && Input.GetButton ("Jump"))
+			{
 				Invoke ("Jump", 0.2f);
 				isJumping = true;
 				myAnimator.SetBool ("IsGrounded", false);
-
 			}
-
 		}
 
-		if ((!direction.isRotate) && ((Input.GetButton ("Horizontal") || Input.GetButton ("Vertical"))))  {
-		
-		
+		if ((!direction.isRotate) && ((Input.GetButton ("Horizontal") || Input.GetButton ("Vertical"))))  
+		{
 			isRotating = true;
+		}
 
-		
-		}
-		if (isRotating) {
-		
-			//Rotate ();
-		
-		}
 		// We apply gravity manually for more tuning control
 		rb.AddForce (new Vector3 (0, -gravity * rb.mass, 0));
 
@@ -184,36 +184,15 @@ public class playerController : MonoBehaviour
 	
 	}
 	void OnTriggerStay(Collider other) {
-		if (other.tag == "Floor" || other.tag == "Platform") {
-			if (!isJumping) {
+		if (other.tag == "Floor" || other.tag == "Platform")
+		{
+			if (!isJumping) 
+			{
 				myAnimator.SetBool ("IsGrounded", true);
 
 				grounded = true;
-
 			}
 		}
-
-
-
-
-	}
-	void OnTriggerEnter( Collider other){
-		if (other.tag == "Floor" || other.tag == "Platform") {
-			if (!isJumping) {
-			
-				//Instantiate (jumpParticles, new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - 0.85f, gameObject.transform.position.z) ,Quaternion.Euler (transform.rotation.x + 90, transform.rotation.y, transform.rotation.z));
-			
-			
-			}
-		}
-	
-	}
-	float CalculateJumpVerticalSpeed()
-	{
-		// From the jump height and gravity we deduce the upwards speed 
-		// for the character to reach at the apex.
-		return Mathf.Sqrt(2 * jumpHeight * gravity);
-
 	}
 	void Jump(){
 	
@@ -222,22 +201,18 @@ public class playerController : MonoBehaviour
 		rb.velocity = new Vector3 (velocity.x, CalculateJumpVerticalSpeed (), velocity.z);
 		isJumping = false;
 		player.GetComponent<AudioSource> ().PlayOneShot (jumpSound);
-
-
-
-
-
-	
 	}
 
+	float CalculateJumpVerticalSpeed()
+	{
+		return Mathf.Sqrt(2 * jumpHeight * gravity);
 
+	}
+		
 	void CalculateDirection(){
 
 		if (!weapon.isAiming) {
 			if (Input.GetKey (KeyCode.W)) {
-
-				//Rotate Player, check detection.isRotate true and W
-
 
 				if (Input.GetKey (KeyCode.D)) {
 			
@@ -250,10 +225,8 @@ public class playerController : MonoBehaviour
 				} else
 					Rotate (3);
 
-				//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
 			} else if (Input.GetKey (KeyCode.S)) {
-
-				//Rotate Player, check detection.isRotate true and W
+				
 				if (Input.GetKey (KeyCode.D)) {
 
 					Rotate (7);
@@ -264,7 +237,6 @@ public class playerController : MonoBehaviour
 
 				} else
 					Rotate (4);
-				//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
 			} else if (Input.GetKey (KeyCode.D)) {
 
 				if (Input.GetKey (KeyCode.W)) {
@@ -277,7 +249,6 @@ public class playerController : MonoBehaviour
 
 				} else
 					Rotate (1);
-				//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
 			} else if (Input.GetKey (KeyCode.A)) {
 				//Rotate Player, check detection.isRotate true and W
 				if (Input.GetKey (KeyCode.W)) {
@@ -290,7 +261,6 @@ public class playerController : MonoBehaviour
 
 				} else
 					Rotate (2);
-				//rigidbody.AddForce(Vector3.right * movementForce * Time.deltaTime * 100);
 			}
 		}
 	}
@@ -326,9 +296,5 @@ public class playerController : MonoBehaviour
 
 			transform.parent.transform.rotation = Quaternion.Euler (0, (direction.rotationEuler.y - 135) %360, 0 );
 		}
-
-
-
-
 	}
 }

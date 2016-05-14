@@ -26,7 +26,6 @@ public class MeleeDamageBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log (weaponColor);
 		if (colorManager.colorsUnlock.Count != 0) {
 			weaponColor = playerAI.weaponColor;
 		} else

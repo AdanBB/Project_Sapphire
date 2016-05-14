@@ -6,7 +6,7 @@ public class ColorWeapon : MonoBehaviour {
 	public ColorManager colorManager;
 
 	public static int currentColor;
-
+	public int color;
 	public int size;
 	// Use this for initialization
 	void Start () {
@@ -18,6 +18,7 @@ public class ColorWeapon : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		color = currentColor;
 
 		if (size != colorManager.colorsUnlock.Count) {
 
