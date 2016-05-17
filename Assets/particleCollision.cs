@@ -11,7 +11,7 @@ public class particleCollision : MonoBehaviour {
 	void Start()
 	{
 		counter = 0f;
-		limit = 1f;
+		limit = 0.5f;
 	}
 
 	void Update()
@@ -21,27 +21,23 @@ public class particleCollision : MonoBehaviour {
 
 	void OnParticleCollision(GameObject other)
 	{
-		ParticleSystem ps = other.GetComponent<ParticleSystem>();
-		ParticleSystem.Particle[] particleList = new ParticleSystem.Particle[ps.particleCount];
-		ps.GetParticles (particleList);
-		ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ps.GetSafeCollisionEventSize()];
-		int noOfCollisions = ps.GetCollisionEvents (other, collisions);
+		if (counter > limit) {
+			ParticleSystem ps = GetComponent<ParticleSystem> ();
+			ParticleSystem.Particle[] particleList = new ParticleSystem.Particle[ps.particleCount];
+			ps.GetParticles (particleList);
+			ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ps.GetSafeCollisionEventSize ()];
+			int noOfCollisions = ps.GetCollisionEvents (other, collisions);
 
-		for(int i = 0; i < noOfCollisions; i++)
-		{
-			Instantiate (splash, collisions[i].intersection, Quaternion.Euler (90, 0, 0));
-		}
-	}
-		
-	/*void OnCollisionStay(Collision collision)
-	{
-		if (counter > limit) 
-		{
-			foreach (ContactPoint contact in collision.contacts) 
-			{
-				Instantiate (splash, new Vector3 (contact.point.x, contact.point.y + 0.2f, contact.point.z), Quaternion.Euler (90, 0, 0));
+			Debug.Log (noOfCollisions);
+
+			Debug.Log ("Particle Collision");
+
+			for (int i = 0; i < noOfCollisions; i++) {
+				Debug.Log ("Recorriendo Particle Collision");
+				Instantiate (splash, collisions [i].intersection, Quaternion.Euler (90, 0, 0));
 			}
+			 
 			counter = 0;
 		}
-	}*/
+	}
 }
