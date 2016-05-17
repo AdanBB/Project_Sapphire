@@ -11,7 +11,7 @@ public class particleCollision : MonoBehaviour {
 	void Start()
 	{
 		counter = 0f;
-		limit = 0.5f;
+		limit = 0.1f;
 	}
 
 	void Update()
@@ -21,21 +21,19 @@ public class particleCollision : MonoBehaviour {
 
 	void OnParticleCollision(GameObject other)
 	{
-		if (counter > limit) {
+		if (counter > limit) 
+		{
+			
 			ParticleSystem ps = GetComponent<ParticleSystem> ();
 			ParticleSystem.Particle[] particleList = new ParticleSystem.Particle[ps.particleCount];
 			ps.GetParticles (particleList);
 			ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ps.GetSafeCollisionEventSize ()];
 			int noOfCollisions = ps.GetCollisionEvents (other, collisions);
 
-			Debug.Log (noOfCollisions);
+			//Debug.Log (noOfCollisions);
 
-			Debug.Log ("Particle Collision");
+			Instantiate (splash, collisions [0].intersection, Quaternion.Euler (90, 0, 0));
 
-			for (int i = 0; i < noOfCollisions; i++) {
-				Debug.Log ("Recorriendo Particle Collision");
-				Instantiate (splash, collisions [i].intersection, Quaternion.Euler (90, 0, 0));
-			}
 			 
 			counter = 0;
 		}

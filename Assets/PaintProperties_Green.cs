@@ -5,10 +5,14 @@ public class PaintProperties_Green : MonoBehaviour {
 
 	public float addSpeed;
 	private playerController playerCon;
+	private GameObject parent;
 
 	void Awake()
 	{
 		playerCon = GameObject.Find ("Direction").GetComponent<playerController> ();
+		parent = GameObject.Find ("SplashParent");
+		gameObject.transform.parent = parent.transform;
+
 	}
 
 	void OnTriggerEnter(Collider other)
