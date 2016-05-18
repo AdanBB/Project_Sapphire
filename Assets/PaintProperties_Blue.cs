@@ -29,7 +29,21 @@ public class PaintProperties_Blue : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit(Collider other)
+    /*void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Splash")
+        {
+            foreach (Vector3 vert in other.gameObject.GetComponent<MeshFilter>().mesh.vertices)
+            {
+                if (!gameObject.GetComponent<Collider>().bounds.Contains(vert))
+                {
+                    Destroy(other.gameObject);
+                }
+            }
+        }
+    }*/
+
+    void OnTriggerExit(Collider other)
 	{
 		if (other.tag == "Player") 
 		{

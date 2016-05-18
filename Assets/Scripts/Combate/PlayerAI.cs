@@ -10,6 +10,8 @@ public class PlayerAI : MonoBehaviour
     public Weapon weapon;
     public int damage;
 
+    public GameObject chorro;
+
     public Renderer myRenderer;
     public int weaponTipe;
     public float fireTime;
@@ -82,7 +84,6 @@ public class PlayerAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         switch (weapon)
         {
             case Weapon.RANGE:
@@ -98,81 +99,80 @@ public class PlayerAI : MonoBehaviour
     }
     public void MeleWeapon()
     {
+        #region Change Weapon
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            weaponImage.sprite = weaponTexture[0];
-
+            weaponImage.sprite = weaponTexture[0];  
             weapon = Weapon.RANGE;	
-
 			swordGO.SetActive (false);
-
 			pistolGO.SetActive (true);
-
         }
-        //if (Input.GetAxis("Mouse ScrollWheel") > 0f)
 
-		if (colorManager.colorsUnlock.Count != 0) {
+        #endregion
 
-			if (ColorWeapon.currentColor == 0) {
-				
-				if ( counterWeapon1 < 1) {
+        #region Color Type
 
-					ChangeColor ();
+        if (colorManager.colorsUnlock.Count != 0)
+        {
+			if (ColorWeapon.currentColor == 0)
+            {
+				if ( counterWeapon1 < 1)
+                {
+                    ChangeColorAudio();
 					counterWeapon2 = 0;
-					if(counterWeapon1 != 1)
-						counterWeapon1++;
+                    if (counterWeapon1 != 1)
+                    {
+                        counterWeapon1++;
+                    }
 				}			
 					var colo = sword.colorOverLifetime;
-
 					colo.color = new ParticleSystem.MinMaxGradient (gradientBlue);
-
 					weaponColor = 1;
-
 					myRenderer.material.color = colorManager.colorsUnlock [0];
-
-
-				
 			}
-			if (ColorWeapon.currentColor == 1) {
 
-				if ( counterWeapon2 < 1) {
-
-					ChangeColor ();
+			if (ColorWeapon.currentColor == 1)
+            {
+				if ( counterWeapon2 < 1)
+                {
+                    ChangeColorAudio();
 					counterWeapon1 = 0;
-					if(counterWeapon2 != 1)
-						counterWeapon2++;
+                    if (counterWeapon2 != 1)
+                    {
+                        counterWeapon2++;
+                    }	
 				}
 
-
-					//GetComponentInParent<AudioSource>().PlayOneShot (swordChangeColor);
-					var colo = sword.colorOverLifetime;
-					colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
-					weaponColor = 2;
-					myRenderer.material.color = colorManager.colorsUnlock [1];
-
-
-
-
+				//GetComponentInParent<AudioSource>().PlayOneShot (swordChangeColor);
+				var colo = sword.colorOverLifetime;
+				colo.color = new ParticleSystem.MinMaxGradient (gradientGreen);
+				weaponColor = 2;
+				myRenderer.material.color = colorManager.colorsUnlock [1];
 			}
-		}     
-        
-		if (Input.GetButtonDown("Fire1")&& (!isAttacking) && PlayerController.grounded)
-        {
-			Debug.Log ("lel");
-			attackNum = (int)UnityEngine.Random.Range (1, 4);
+		}
 
+        #endregion
+
+        #region Attack
+
+        if (Input.GetButtonDown("Fire1")&& (!isAttacking) && PlayerController.grounded)
+        {
+			attackNum = (int)UnityEngine.Random.Range (1, 4);
 			myAnimator.SetInteger ("Attack", attackNum );
             myAnimator.SetBool("IsAttacking", true);
 			isAttacking = true;
 			Invoke ("FireRestart", 0.5f);
         }
 
-
+        #endregion
 
     }
 
     public void RangeWeapon()
     {
+        #region Change Weapon 
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             weaponImage.sprite = weaponTexture[1];
@@ -180,39 +180,70 @@ public class PlayerAI : MonoBehaviour
 			swordGO.SetActive (true);
 			pistolGO.SetActive (false);
         }
+
+        #endregion
+
+        #region Shoot Bullet
+
         if (_firetime >= 0)
         {
             _firetime--;
 
         }
+
 		if (_firetime <= 0 && Input.GetButtonDown("Fire1") && isAiming && (colorManager.colorsUnlock.Count != 0))
         {
             myAnimator.SetBool("IsShooting", true);
+            if (!chorro.GetComponent<ParticleSystem>().isPlaying)
+            {
+                chorro.GetComponent<ParticleSystem>().Play();
+            }
             Fire();
             _firetime = fireTime;
         }
 
-		if (Input.GetMouseButtonDown (1)) {
+        #endregion
 
+        #region Shoot Chorro
+
+        if (Input.GetButton("Fire1") && isAiming && (colorManager.colorsUnlock.Count != 0))
+        {
+            if (!chorro.activeInHierarchy)
+            {
+                chorro.SetActive(true);
+                chorro.GetComponent<ParticleSystem>().Play();
+            }
+            myAnimator.SetBool("IsShooting", true);  
+        }
+
+        else
+        {
+            chorro.gameObject.SetActive(false);
+        }
+
+        #endregion
+
+        #region Aim
+
+        if (Input.GetMouseButtonDown (1))
+        {
 			//Pivot.transform.localPosition = _pivotTransform;
-			Aim();
 			myAnimator.SetBool ("Aim",true);
 			_currentFrame = 0;
 			isAiming = true;
-
 		}
 
-		if (Input.GetMouseButtonUp (1)) {
-
-			//Pivot.transform.localPosition = pivotTransform;
+		if (Input.GetMouseButtonUp (1))
+        {
+            //Pivot.transform.localPosition = pivotTransform;
 			myAnimator.SetBool ("Aim",false);
 			currentFrame = 0;
 			isAiming = false;
 			Invoke ("Aim", 0.2f);
-
 		}
-		if (isAiming) {
 
+		if (isAiming)
+        {
 			if(currentFrame <= framesDuration)
 			{
 				// TODO: calcular easing
@@ -226,10 +257,10 @@ public class PlayerAI : MonoBehaviour
 					Easing.QuartEaseIn(currentFrame, pivotTransform.z, (_pivotTransform.z - pivotTransform.z), framesDuration));        
 				currentFrame++;
 			}
-
 		}
-		if (!isAiming) {
-		
+
+		if (!isAiming)
+        {
 			if(_currentFrame <= framesDuration)
 			{
 				// TODO: calcular easing
@@ -243,10 +274,11 @@ public class PlayerAI : MonoBehaviour
 					Easing.QuartEaseOut(_currentFrame, _pivotTransform.z, (pivotTransform.z - _pivotTransform.z), framesDuration));        
 				_currentFrame++;
 			}
-		
 		}
 
+        #endregion
     }
+
     void Fire()
     {
         GameObject obj = PoolingObjectScript.current.GetPooledObject();
@@ -264,18 +296,15 @@ public class PlayerAI : MonoBehaviour
 
 		Instantiate (ShootParticle, transform.position, transform.rotation);
     }
-	void FireRestart(){
-	
-		myAnimator.SetBool ("IsAttacking", false);
+
+	void FireRestart()
+    {
+        myAnimator.SetBool ("IsAttacking", false);
 		isAttacking = false;
-	
 	}
-	void Aim(){
 
-	}
-	void ChangeColor(){
-
+    void ChangeColorAudio()
+    {
 		GetComponentInParent<AudioSource>().PlayOneShot (swordChangeColor);
-	
 	}
 }

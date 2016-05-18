@@ -29,7 +29,7 @@ public class particleCollision : MonoBehaviour {
 			ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ps.GetSafeCollisionEventSize ()];
 			int noOfCollisions = ps.GetCollisionEvents (other, collisions);
 
-            Instantiate(splash, new Vector3(collisions[0].intersection.x, collisions[0].intersection.y + 0.2f, collisions[0].intersection.z), Quaternion.Euler(90, 0, 0));
+            Instantiate(splash, new Vector3(collisions[0].intersection.x, collisions[0].intersection.y + 0.01f, collisions[0].intersection.z), Quaternion.Euler(90, Random.Range(0,360), 0));
 
             counter = 0;
 		}
