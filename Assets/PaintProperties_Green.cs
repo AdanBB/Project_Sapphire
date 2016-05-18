@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PaintProperties_Green : MonoBehaviour {
 
 	public float addSpeed;
-	private playerController playerCon;
+
+    public List<Texture> splashImages;
+
+    private playerController playerCon;
 	private GameObject parent;
 
 	void Awake()
 	{
-		playerCon = GameObject.Find ("Direction").GetComponent<playerController> ();
+        int randomImage = Random.Range(0, splashImages.Count);
+        GetComponent<Renderer>().material.SetTexture("_MainTex", splashImages[randomImage]);
+
+        playerCon = GameObject.Find ("Direction").GetComponent<playerController> ();
 		parent = GameObject.Find ("SplashParent");
 		gameObject.transform.parent = parent.transform;
-
 	}
 
 	void OnTriggerEnter(Collider other)

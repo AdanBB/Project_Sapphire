@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class particleCollision : MonoBehaviour {
 
@@ -21,7 +20,7 @@ public class particleCollision : MonoBehaviour {
 
 	void OnParticleCollision(GameObject other)
 	{
-		if (counter > limit) 
+		if (counter > limit && (other.tag != "Player")) 
 		{
 			
 			ParticleSystem ps = GetComponent<ParticleSystem> ();
@@ -30,12 +29,9 @@ public class particleCollision : MonoBehaviour {
 			ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ps.GetSafeCollisionEventSize ()];
 			int noOfCollisions = ps.GetCollisionEvents (other, collisions);
 
-			//Debug.Log (noOfCollisions);
+            Instantiate(splash, new Vector3(collisions[0].intersection.x, collisions[0].intersection.y + 0.2f, collisions[0].intersection.z), Quaternion.Euler(90, 0, 0));
 
-			Instantiate (splash, collisions [0].intersection, Quaternion.Euler (90, 0, 0));
-
-			 
-			counter = 0;
+            counter = 0;
 		}
 	}
 }
