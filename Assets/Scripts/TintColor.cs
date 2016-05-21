@@ -25,23 +25,16 @@ public class TintColor : MonoBehaviour {
 
 				gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
 				colorManager.adColor (idColor);
-
 			}
-
-
 		}
-	
 	}
     void OnTriggerEnter(Collider other)
     {
 		if (other.tag == ("Player") )
         {
-
 			isInside = true;
 
             //bullet.GetComponent<Renderer>().sharedMaterial.color = this.GetComponent<Renderer>().sharedMaterial.GetColor("_Color");
-
-
         }
     }
 	void OnTriggerExit(Collider other)
@@ -51,14 +44,11 @@ public class TintColor : MonoBehaviour {
 			isInside = false;
 
 			//bullet.GetComponent<Renderer>().sharedMaterial.color = this.GetComponent<Renderer>().sharedMaterial.GetColor("_Color");
-
-
 		}
 	}
 
-	void colorSet(){
-	
-
+	void colorSet()
+    {
 		gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class PaintProperties_Green : MonoBehaviour {
 
-	public float addSpeed;
+	public float newSpeed;
 
     public List<Texture> splashImages;
 
@@ -24,23 +24,19 @@ public class PaintProperties_Green : MonoBehaviour {
 	{
 		if (other.tag == "Player") 
 		{
-			playerCon.rb.AddRelativeForce (Vector3.forward * addSpeed);
+            playerCon._speed = newSpeed;
 		}
-	}
-
-	void OnTriggerStay(Collider other)
-	{
-		if (other.tag == "Player") 
-		{
-			playerCon.rb.AddRelativeForce (Vector3.forward * addSpeed);
-		}
+        /*if (other.gameObject.name == "paintSplash_Blue(Clone)")
+        {
+            Destroy(gameObject);
+        }*/
 	}
 
 	void OnTriggerExit(Collider other)
 	{
 		if (other.tag == "Player") 
 		{
-			playerCon.rb.AddRelativeForce (Vector3.forward * (addSpeed * 2));
-		}
+            playerCon._speed = playerCon.privateSpeed;
+        }
 	}
 }

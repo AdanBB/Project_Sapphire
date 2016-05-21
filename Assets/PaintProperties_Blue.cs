@@ -30,7 +30,11 @@ public class PaintProperties_Blue : MonoBehaviour {
             jumPower = playerCon.privateJumpHehight;
             playerCon.jumpHeight = newJumpHeight;
 		}
-	}
+        /*if (other.gameObject.name == "paintSplash_Green(Clone)")
+        {
+            Destroy(gameObject);
+        }*/
+    }
 
     void OnTriggerExit(Collider other)
 	{

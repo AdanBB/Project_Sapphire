@@ -13,6 +13,7 @@ public class particleCollision : MonoBehaviour {
 
 	private float counter;
 	private float limit;
+    private int privateColor;
 
     void Awake()
     {
@@ -28,10 +29,6 @@ public class particleCollision : MonoBehaviour {
 		counter = 0f;
 		limit = 0.1f;
 
-        /*if ()
-        {
-        
-        }*/
 	}
 
 	void Update()
@@ -39,18 +36,18 @@ public class particleCollision : MonoBehaviour {
 		counter += Time.deltaTime;
 	}
 
-	void OnParticleCollision(GameObject other)
-	{
-		if (counter > limit && (other.tag != "Player")) 
-		{
-			
-			ParticleSystem ps = GetComponent<ParticleSystem> ();
-			ParticleSystem.Particle[] particleList = new ParticleSystem.Particle[ps.particleCount];
-			ps.GetParticles (particleList);
-			ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ps.GetSafeCollisionEventSize ()];
-			int noOfCollisions = ps.GetCollisionEvents (other, collisions);
+    void OnParticleCollision(GameObject other)
+    {
+        if (counter > limit && (other.tag == "Floor"))
+        {
 
-            //Instantiate(instantiateObject, new Vector3(collisions[0].intersection.x, collisions[0].intersection.y + 0.01f, collisions[0].intersection.z), Quaternion.Euler(90, Random.Range(0,360), 0));
+            ParticleSystem ps = GetComponent<ParticleSystem>();
+            ParticleSystem.Particle[] particleList = new ParticleSystem.Particle[ps.particleCount];
+            ps.GetParticles(particleList);
+            ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ps.GetSafeCollisionEventSize()];
+            int noOfCollisions = ps.GetCollisionEvents(other, collisions);
+
+            Instantiate(instantiateObject, new Vector3(collisions[0].intersection.x, collisions[0].intersection.y + 0.01f, collisions[0].intersection.z), Quaternion.Euler(90, Random.Range(0,360), 0));
 
             for (int i = 0; i < collisions.Length; i++)
             {
@@ -58,13 +55,23 @@ public class particleCollision : MonoBehaviour {
             }
 
             counter = 0;
-		}
+        }
 
         if (counter > limit && (other.tag == "Platform"))
         {
-            foreach (Renderer childRenderer in other.GetComponentsInChildren<Renderer>())
+            if (privateColor == 0)
             {
-                childRenderer.material.color = new Color(childRenderer.material.color.r - 20, childRenderer.material.color.g - 20, 255);
+                foreach (Renderer childRenderer in other.transform.GetChild(1).GetComponentsInChildren<Renderer>())
+                {
+                    childRenderer.material.color = Color.blue;
+                }
+            }
+            if (privateColor == 1)
+            {
+                foreach (Renderer childRenderer in other.transform.GetChild(1).GetComponentsInChildren<Renderer>())
+                {
+                    childRenderer.material.color = Color.green;
+                }
             }
         }
     }
@@ -73,6 +80,8 @@ public class particleCollision : MonoBehaviour {
     {
         if (color == 0)
         {
+            privateColor = 0;
+
             GetComponent<ParticleSystem>().startColor = color1;
 
             foreach (ParticleSystem ps in GetComponentsInChildren<ParticleSystem>())
@@ -83,6 +92,8 @@ public class particleCollision : MonoBehaviour {
         }
         if (color == 1)
         {
+            privateColor = 1;
+
             GetComponent<ParticleSystem>().startColor = color2;
 
             foreach (ParticleSystem ps in GetComponentsInChildren<ParticleSystem>())

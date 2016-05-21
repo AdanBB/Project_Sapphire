@@ -9,7 +9,9 @@ public class playerController : MonoBehaviour
     public Rigidbody rb;
 
     public float speed;
-	private float _speed;
+	internal float _speed;
+    internal float privateSpeed;
+
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
 
@@ -33,7 +35,9 @@ public class playerController : MonoBehaviour
 
     void Awake()
     {
+        privateSpeed = speed;
         privateJumpHehight = jumpHeight;
+
         rb = transform.parent.GetComponent<Rigidbody>();
 		myAnimator = transform.parent.GetComponent<Animator>();
 		direction = transform.GetComponent<cameraFollow> ();

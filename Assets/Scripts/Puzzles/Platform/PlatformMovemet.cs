@@ -74,12 +74,12 @@ public class PlatformMovemet : MonoBehaviour
 
     public void ColorDetection()
     {
-        if (myRenderer.material.color == verticalColor)
+        if (myRenderer.material.color == Color.blue)
         {
 			
             VMovement();
         }
-        if (myRenderer.material.color == hotizontalColor)
+        if (myRenderer.material.color == Color.green)
         {
             HMovement();
         }
