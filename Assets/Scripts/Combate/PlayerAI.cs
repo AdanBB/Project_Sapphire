@@ -184,7 +184,7 @@ public class PlayerAI : MonoBehaviour
         #endregion
 
         #region Shoot Bullet
-
+        /*
         if (_firetime >= 0)
         {
             _firetime--;
@@ -200,7 +200,7 @@ public class PlayerAI : MonoBehaviour
             }
             Fire();
             _firetime = fireTime;
-        }
+        }*/
 
         #endregion
 
@@ -211,6 +211,7 @@ public class PlayerAI : MonoBehaviour
             if (!chorro.activeInHierarchy)
             {
                 chorro.SetActive(true);
+                chorro.GetComponent<particleCollision>().ParticleColor(ColorWeapon.currentColor);
                 chorro.GetComponent<ParticleSystem>().Play();
             }
             myAnimator.SetBool("IsShooting", true);  

@@ -12,8 +12,11 @@ public class playerController : MonoBehaviour
 	private float _speed;
     public float gravity = 10.0f;
     public float maxVelocityChange = 10.0f;
+
     public bool canJump = true;
     public float jumpHeight;
+    internal float privateJumpHehight;
+
     public bool grounded = false;
     public bool isInvulnerable;
     public bool _isMoving;
@@ -30,8 +33,8 @@ public class playerController : MonoBehaviour
 
     void Awake()
     {
-		
-		rb = transform.parent.GetComponent<Rigidbody>();
+        privateJumpHehight = jumpHeight;
+        rb = transform.parent.GetComponent<Rigidbody>();
 		myAnimator = transform.parent.GetComponent<Animator>();
 		direction = transform.GetComponent<cameraFollow> ();
 		player = transform.parent.gameObject;

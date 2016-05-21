@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 public class PaintProperties_Blue : MonoBehaviour {
 
-	public float addJump;
+	public float newJumpHeight;
 
     public List<Texture> splashImages;
 
 	private playerController playerCon;
 	private GameObject parent;
+
+    private float jumPower;
 
 	void Awake()
 	{
@@ -25,29 +27,16 @@ public class PaintProperties_Blue : MonoBehaviour {
 	{
 		if (other.tag == "Player") 
 		{
-			playerCon.jumpHeight += addJump;
+            jumPower = playerCon.privateJumpHehight;
+            playerCon.jumpHeight = newJumpHeight;
 		}
 	}
-
-    /*void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Splash")
-        {
-            foreach (Vector3 vert in other.gameObject.GetComponent<MeshFilter>().mesh.vertices)
-            {
-                if (!gameObject.GetComponent<Collider>().bounds.Contains(vert))
-                {
-                    Destroy(other.gameObject);
-                }
-            }
-        }
-    }*/
 
     void OnTriggerExit(Collider other)
 	{
 		if (other.tag == "Player") 
 		{
-			playerCon.jumpHeight -= addJump;
-		}
+            playerCon.jumpHeight = jumPower;
+        }
 	}
 }
