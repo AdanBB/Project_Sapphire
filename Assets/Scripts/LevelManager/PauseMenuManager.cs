@@ -5,7 +5,12 @@ public class PauseMenuManager : MonoBehaviour {
 
     public PlayerAI playerAI;
     public GameObject player;
-    public GameObject pause;
+    public GameObject mainCamera;
+
+
+    public GameObject uiObject;
+    public GameObject pauseObject;
+    public GameObject optionsObject;
 
     public string nextLevel;
     public string menuLevel;
@@ -17,75 +22,100 @@ public class PauseMenuManager : MonoBehaviour {
 	
 		isPaused = false;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-			if (!isPaused) {
-				
-				SetPause ();
+            if (!isPaused) {
 
-
-			} else if (isPaused) {
-
-				SetGame ();
-
-			}
-  
+                SetPause();
+            }
         }
-		if (Input.GetKeyDown(KeyCode.N))
-		{
-			if (isPaused) {
-				SetGame ();
-    			SceneManager.LoadScene(nextLevel);
-			}
 
-		}
-		if (Input.GetKeyDown(KeyCode.M))
-		{
-			if (isPaused) {
-				SetGame ();
-                SceneManager.LoadScene(menuLevel);
-			} 
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            if (isPaused)
+            {
+                SetGame();
+                SceneManager.LoadScene(nextLevel);
+            }
 
-		}
-		if (Input.GetKeyDown(KeyCode.E))
-		{
-			if (isPaused) {
-				SetGame ();
-				Application.Quit();
-			} 
-		}
-	}
-    public void ResumeBotton()
-    {
-
-		SetGame ();
-
+        }
     }
-    public void MainMenuBotton()
-    {
-      
-        Time.timeScale = 1;
-        LevelManager.NextScene("menuScreen");
-		player.SetActive(true);
-		playerAI.enabled = true;
-    }
-    public void ExitGameBotton()
-    {
-        Application.Quit();
-    }
-	void SetPause(){
 
-        pause.SetActive(true);
-		isPaused = true;
+    #region Pause Behavior
+
+    public void ResumeLevel()
+    {
+        SetGame();
+    }
+
+    public void MainMenu()
+    {
+        if (isPaused)
+        {
+            SetGame();
+            SceneManager.LoadScene(menuLevel);
+        }
+    }
+
+    public void Exit()
+    {
+        if (isPaused)
+        {
+            SetGame();
+            Application.Quit();
+        }
+    }
+
+    public void Options()
+    {
+        pauseObject.SetActive(false);
+        optionsObject.SetActive(true);
+    }
+
+    #endregion
+
+    #region Options Behavior
+
+    public void BackButton()
+    {
+        pauseObject.SetActive(true);
+        optionsObject.SetActive(false);
+    }
+
+    public void AudioVolume()
+    { 
+    }
+
+    public void QualityDropdown()
+    {
+    }
+
+    public void AADropdown()
+    {
+    }
+
+    #endregion
+
+    void SetPause(){
+
+        uiObject.SetActive(false);
+        pauseObject.SetActive(true);
+        mainCamera.GetComponent<UnityStandardAssets.Utility.SimpleMouseRotator>().enabled = false;
+        Cursor.visible = true;
+        isPaused = true;
 		Time.timeScale = 0;
 	}
+
 	void SetGame(){
 
-        pause.SetActive(false);
+        uiObject.SetActive(true);
+        mainCamera.GetComponent<UnityStandardAssets.Utility.SimpleMouseRotator>().enabled = true;
+        Cursor.visible = false;
+        pauseObject.SetActive(false);
 		isPaused = false;
 		Time.timeScale = 1;
 	}

@@ -240,7 +240,6 @@ public class PlayerAI : MonoBehaviour
 			myAnimator.SetBool ("Aim",false);
 			currentFrame = 0;
 			isAiming = false;
-			Invoke ("Aim", 0.2f);
 		}
 
 		if (isAiming)
