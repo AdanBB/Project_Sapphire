@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PauseMenuManager : MonoBehaviour {
 
@@ -86,16 +87,45 @@ public class PauseMenuManager : MonoBehaviour {
         optionsObject.SetActive(false);
     }
 
-    public void AudioVolume()
-    { 
+    public void AudioVolume(int value)
+    {
+        
     }
 
-    public void QualityDropdown()
+    public void QualityDropdown(int value)
     {
+        if (value == 0)
+        {
+            QualitySettings.SetQualityLevel(0, true);
+        }
+        if (value == 0)
+        {
+            QualitySettings.SetQualityLevel(2, true);
+        }
+        if (value == 0)
+        {
+            QualitySettings.SetQualityLevel(5, true);
+        }
     }
 
-    public void AADropdown()
+    public void AADropdown(int value)
     {
+        if (value == 0)
+        {
+            QualitySettings.antiAliasing = 0;
+        }
+        if (value == 1)
+        {
+            QualitySettings.antiAliasing = 2;
+        }
+        if (value == 2)
+        {
+            QualitySettings.antiAliasing = 4;
+        }
+        if (value == 3)
+        {
+            QualitySettings.antiAliasing = 8;
+        }
     }
 
     #endregion
