@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class EnemyStats : MonoBehaviour {
     public float maxHealth;
     public float health;
-    public Slider healthUI;
+
+
     Animator myAnimator;
     void Awake()
     {
@@ -14,13 +15,12 @@ public class EnemyStats : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         health = maxHealth;
-        healthUI.value = maxHealth;
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        healthUI.value = health;
+        
 
     }
     public void ApplyDamage(float damage)
