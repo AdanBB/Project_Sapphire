@@ -46,10 +46,15 @@ public class blockCrack : MonoBehaviour {
 			Debug.Log ("dsadsa");
 			anim.SetBool ("IsGrow", true);
 
-			Invoke ("Down",1.3f);
+			PreDown ();
 		}
 
 
+	}
+	public void PreDown(){
+	
+		Invoke ("Down",1.3f);
+	
 	}
 	void Down(){
 	

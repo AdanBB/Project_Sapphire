@@ -3,7 +3,8 @@
 public class bossParticles : MonoBehaviour {
 
 	public GameObject splashColor1;
-    public GameObject splashColor2;
+
+
 
     public GameObject colorManager;
 
@@ -49,11 +50,11 @@ public class bossParticles : MonoBehaviour {
             ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ps.GetSafeCollisionEventSize()];
             int noOfCollisions = ps.GetCollisionEvents(other, collisions);
 
-            Instantiate(instantiateObject, new Vector3(collisions[0].intersection.x, collisions[0].intersection.y + 0.01f, collisions[0].intersection.z), Quaternion.Euler(90, Random.Range(0,360), 0));
+			Instantiate(splashColor1, new Vector3(collisions[0].intersection.x, collisions[0].intersection.y + 0.01f, collisions[0].intersection.z), Quaternion.Euler(90, Random.Range(0,360), 0));
 
             for (int i = 0; i < collisions.Length; i++)
             {
-                Instantiate(instantiateObject, new Vector3(collisions[i].intersection.x, collisions[i].intersection.y + 0.01f, collisions[i].intersection.z), Quaternion.Euler(90, Random.Range(0, 360), 0));
+				Instantiate(splashColor1, new Vector3(collisions[i].intersection.x, collisions[i].intersection.y + 0.01f, collisions[i].intersection.z), Quaternion.Euler(90, Random.Range(0, 360), 0));
             }
 
             counter = 0;
@@ -114,7 +115,7 @@ public class bossParticles : MonoBehaviour {
             {
                 ps.startColor = color2;
             }
-            instantiateObject = splashColor2;
+            
         }
     }
 }
