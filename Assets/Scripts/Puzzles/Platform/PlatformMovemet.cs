@@ -26,8 +26,8 @@ public class PlatformMovemet : MonoBehaviour
 
     [Header("Colors")]
 
-    public Color verticalColor;
-    public Color hotizontalColor;
+    private Color verticalColor = Color.blue;
+    private Color hotizontalColor = Color.green;
 
     [Header("Horizontal")]
 
