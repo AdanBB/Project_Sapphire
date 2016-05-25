@@ -92,6 +92,7 @@ ModelImporter:
     4300032: A021_Part_16
     7400000: Take 001
     7400002: Take 0010
+    7400004: Take 0011
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -188,6 +189,68 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: A021_Part_1
+        weight: 1
+      - path: A021_Part_2
+        weight: 1
+      - path: A021_Part_3
+        weight: 1
+      - path: A021_Part_4
+        weight: 1
+      - path: A021_Part_5
+        weight: 1
+      - path: A021_Part_6
+        weight: 1
+      - path: A021_Part_7
+        weight: 1
+      - path: A021_Part_8
+        weight: 1
+      - path: A021_Part_9
+        weight: 1
+      - path: A021_Part_10
+        weight: 1
+      - path: A021_Part_11
+        weight: 1
+      - path: A021_Part_12
+        weight: 1
+      - path: A021_Part_13
+        weight: 1
+      - path: A021_Part_14
+        weight: 1
+      - path: A021_Part_15
+        weight: 1
+      - path: A021_Part_16
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Take 0011
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
