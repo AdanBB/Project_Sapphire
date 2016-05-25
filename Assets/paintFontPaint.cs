@@ -8,14 +8,17 @@ public class paintFontPaint : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        if (font.GetComponent<TintColor>().idColor == 1)
+        if (gameObject.GetComponent<Renderer>() != null)
         {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
-        }
+            if (font.GetComponent<TintColor>().idColor == 1)
+            {
+                gameObject.GetComponent<Renderer>().material.color = Color.green;
+            }
 
-        if (font.GetComponent<TintColor>().idColor == 0)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.blue;
+            if (font.GetComponent<TintColor>().idColor == 0)
+            {
+                gameObject.GetComponent<Renderer>().material.color = Color.blue;
+            }
         }
         if (GetComponent<ParticleSystem>() != null)
         {
@@ -27,6 +30,18 @@ public class paintFontPaint : MonoBehaviour {
             if (font.GetComponent<TintColor>().idColor == 0)
             {
                 gameObject.GetComponent<ParticleSystem>().startColor = Color.blue;
+            }
+        }
+        if (GetComponent<Light>() != null)
+        {
+            if (font.GetComponent<TintColor>().idColor == 1)
+            {
+                gameObject.GetComponent<Light>().color = Color.green;
+            }
+
+            if (font.GetComponent<TintColor>().idColor == 0)
+            {
+                gameObject.GetComponent<Light>().color = Color.blue;
             }
         }
     }
