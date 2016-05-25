@@ -30,6 +30,20 @@ public class Ablock : MonoBehaviour {
 			}
 
 		}
+		if (other.tag == "EnemySkull") {
+
+
+			if (this.gameObject.name == "A") {
+				other.GetComponent<EnemyAI3> ().GotoPosition (2);
+			}
+
+			if (this.gameObject.name == "B") {
+				Debug.Log ("dsa");
+				other.GetComponent<EnemyAI3> ().GotoPosition (1);
+
+			}
+
+		}
 
 	}
 

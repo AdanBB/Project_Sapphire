@@ -26,6 +26,8 @@ public class EnemyAI3 : MonoBehaviour {
 	public AudioClip lastHitSound;
 	private AudioSource enemySound;
 
+	public Transform pointA;
+	public Transform pointB;
 
 	void Awake(){
 
@@ -43,6 +45,8 @@ public class EnemyAI3 : MonoBehaviour {
 		detectionCollider.radius = detectionRange;
 
 		range = agent.stoppingDistance;
+		agent.SetDestination (pointA.position);
+
 	}
 		
 	// Update is called once per frame
@@ -98,5 +102,19 @@ public class EnemyAI3 : MonoBehaviour {
 		enemySound.PlayOneShot (enemyAttack);
 
 	}
+	public void GotoPosition(int where){
 
+
+		if (where == 1) {
+
+			agent.SetDestination (pointA.position);
+
+		}
+		if (where == 2) {
+
+			agent.SetDestination (pointB.position);
+
+		}
+
+	}
 }

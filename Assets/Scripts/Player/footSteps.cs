@@ -58,7 +58,7 @@ public class footSteps : MonoBehaviour
 		if ((other.tag == "Platform")) {
 
 			activeSteps = true;
-			_stepColor = other.gameObject.transform.GetChild (1).GetComponentInChildren<Renderer> ().material.color;
+//			_stepColor = other.gameObject.transform.GetChild (1).GetComponentInChildren<Renderer> ().material.color;
 			steps.GetComponent<SpriteRenderer> ().color = _stepColor;
 			_stepNumber = 0;
 		}
