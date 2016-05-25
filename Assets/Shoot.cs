@@ -18,7 +18,7 @@ public class Shoot : MonoBehaviour {
 	void Update () {
 	
 		counter += Time.deltaTime;
-		if (counter >= 3) {
+		if (counter >= 2.5f) {
 			Instantiate (shoot, transform.position, transform.rotation);
 			counter = 0;
 		}
