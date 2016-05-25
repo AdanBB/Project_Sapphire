@@ -23,6 +23,8 @@ public class EnemyDetection : MonoBehaviour {
     }
     void OnTriggerExit(Collider other)
     {
-        
+		if (other.tag == "Player") {
+			enemyAi2.GotoPosition (1);
+		}
     }
 }

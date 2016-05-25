@@ -83,6 +83,13 @@ public class EnemyAI3 : MonoBehaviour {
 
 		health = health - Damage;
 
+		if (health <= 0) {
+		
+			agent.enabled = false;
+
+			Destroy (this.gameObject);
+		
+		}
 
 	}
 	public void DamagePlayer(){

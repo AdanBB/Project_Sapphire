@@ -15,6 +15,7 @@ public class particleCollision : MonoBehaviour {
 	private float limit;
     private int privateColor;
 
+	public int damage;
     void Awake()
     {
 
@@ -74,6 +75,18 @@ public class particleCollision : MonoBehaviour {
                 }
             }
         }
+		if (counter > limit && (other.tag == "Enemy")) {
+
+			other.GetComponent<EnemyAi2> ().AdDamage (damage, 0 );
+
+
+		}
+		if (counter > limit && (other.tag == "EnemySkull")) {
+
+			other.GetComponent<EnemyAI3> ().AdDamage (damage, 0 );
+
+
+		}
     }
 
     public void ParticleColor(int color)

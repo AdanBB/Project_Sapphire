@@ -42,6 +42,11 @@ public class EnemyAi2 : MonoBehaviour {
 	public AudioClip enemyAttack;
 	public AudioClip lastHitSound;
 	private AudioSource enemySound;
+
+	public Transform pointA;
+	public Transform pointB;
+
+
 	// Use this for initialization
     void Awake () {
 
@@ -64,7 +69,8 @@ public class EnemyAi2 : MonoBehaviour {
 		detectionCollider.radius = detectionRange;
 
 		isAttacking = false;
-
+		agent.SetDestination (pointA.position);
+		anim.SetBool ("IsMoving", true );
 	}
 	
 	// Update is called once per frame
@@ -119,10 +125,27 @@ public class EnemyAi2 : MonoBehaviour {
 
 		
 		}
+
+
+
 	
 
 	}
+	public void GotoPosition(int where){
+	
+	
+		if (where == 1) {
+		
+			agent.SetDestination (pointA.position);
+		
+		}
+		if (where == 2) {
 
+			agent.SetDestination (pointB.position);
+
+		}
+	
+	}
 
     public void FollowPlayer()
     {

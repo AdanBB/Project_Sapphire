@@ -173,13 +173,13 @@ public class PlayerAI : MonoBehaviour
     {
         #region Change Weapon 
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        /*/if (Input.GetKeyDown(KeyCode.Q))
         {
             weaponImage.sprite = weaponTexture[1];
             weapon = Weapon.MELEE;
 			swordGO.SetActive (true);
 			pistolGO.SetActive (false);
-        }
+        }*/
 
         #endregion
 
