@@ -96,15 +96,15 @@ public class PauseMenuManager : MonoBehaviour {
     {
         if (value == 0)
         {
-            QualitySettings.SetQualityLevel(0, true);
+            QualitySettings.SetQualityLevel(5, true);
         }
-        if (value == 0)
+        if (value == 1)
         {
             QualitySettings.SetQualityLevel(2, true);
         }
-        if (value == 0)
+        if (value == 2)
         {
-            QualitySettings.SetQualityLevel(5, true);
+            QualitySettings.SetQualityLevel(0, true);
         }
     }
 
