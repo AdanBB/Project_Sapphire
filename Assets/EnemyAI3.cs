@@ -48,8 +48,8 @@ public class EnemyAI3 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//Debug.Log(Vector2.Distance (transform.position,player.transform.position ));
-		Debug.Log(Vector3.Distance (player.transform.position,transform.position ));
+	
+
 	
 	}
 	public void FollowPlayer()
