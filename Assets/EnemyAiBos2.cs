@@ -6,6 +6,7 @@ public class EnemyAiBos2 : MonoBehaviour {
 	public int health;
 	private int _health;
 	public GameObject particles;
+	public GameObject hoguera;
 	public bool active;
 	// Use this for initialization
 	void Start () {
@@ -19,6 +20,9 @@ public class EnemyAiBos2 : MonoBehaviour {
 		}
 		if (health <= 0) {
 			particles.SetActive (true);
+
+			hoguera.SetActive (true);
+
 			Destroy (this.gameObject);
 
 		}

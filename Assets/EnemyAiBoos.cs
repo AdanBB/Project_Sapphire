@@ -27,9 +27,8 @@ public class EnemyAiBoos : MonoBehaviour {
 
 		if (health <= 0) {
 			
-			Debug.Log("dsadsa");
 			particles.SetActive (true);
-			enemyAi2.SetLife ();
+			enemyAi2.active = true;
 			Destroy (this.gameObject);
 
 		}
