@@ -6,6 +6,10 @@ public class EnemyAiBoos : MonoBehaviour {
 	public int health;
 	private int _health;
 
+	public EnemyAiBos2 enemyAi2;
+
+	public GameObject particles;
+
 
 	// Use this for initialization
 	void Start () {
@@ -19,11 +23,13 @@ public class EnemyAiBoos : MonoBehaviour {
 
 	public void AdDamage(int Damage){
 
-		Debug.Log (health);
-		health = health - Damage;
+		health -= Damage;
 
 		if (health <= 0) {
-
+			
+			Debug.Log("dsadsa");
+			particles.SetActive (true);
+			enemyAi2.SetLife ();
 			Destroy (this.gameObject);
 
 		}

@@ -95,6 +95,14 @@ public class particleCollision : MonoBehaviour {
 
 
 		}
+		if ((other.tag == "Boss2")) {
+
+			Debug.Log ("dsadsa");
+
+			other.GetComponent<EnemyAiBos2> ().AdDamage (damage);
+
+
+		}
     }
 
     public void ParticleColor(int color)

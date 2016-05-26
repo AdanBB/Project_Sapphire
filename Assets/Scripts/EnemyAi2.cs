@@ -215,9 +215,7 @@ public class EnemyAi2 : MonoBehaviour {
 
 
 		}else if (lastHit ) {
-			Debug.Log ("esta");
-			Debug.Log (color);
-			Debug.Log (random);
+			
 
 			if (colorManager.colorsUnlock.Count == 0) {
 
