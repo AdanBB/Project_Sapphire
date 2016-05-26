@@ -18,7 +18,7 @@ public class laserScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		laserLine = GetComponentInChildren<LineRenderer> ();
-		laserLine.SetWidth (4f, 4f);
+		laserLine.SetWidth (1f, 1f);
 
 		trail.position = startPoint.position;
 	}
@@ -29,10 +29,10 @@ public class laserScript : MonoBehaviour {
 
 		counter += Time.deltaTime;
 
-		if (counter <= 2.5 && Vector3.Distance (startPoint.position, trail.position) <= 20) {
-			trail.Translate (0, 0, 20* Time.deltaTime);
+		if (counter >= 1.7f && Vector3.Distance (startPoint.position, trail.position) <= 20) {
+			trail.Translate (0, 0, 1000* Time.deltaTime);
 		}
-		if (counter >= 3) {
+		if (counter >= 2.5f) {
 		
 			trail.position = startPoint.position;
 			counter = 0;
