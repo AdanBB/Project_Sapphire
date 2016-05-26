@@ -76,6 +76,9 @@ public class EnemyAI3 : MonoBehaviour {
 		
 			//Debug.Log(Vector2.Distance (player.transform.position, this.transform.position));
 			player.GetComponent<CharacterStats> ().ApplyDamage (damage);
+
+            Instantiate(explosionParticles, transform.position, transform.localRotation);
+
 			Destroy (gameObject);
 		
 		}
@@ -92,7 +95,9 @@ public class EnemyAI3 : MonoBehaviour {
 		
 			agent.enabled = false;
 
-			Destroy (this.gameObject);
+            Instantiate(explosionParticles, transform.position, transform.localRotation);
+
+            Destroy (this.gameObject);
 		
 		}
 
