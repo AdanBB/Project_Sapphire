@@ -85,13 +85,8 @@ public class EnemyAi2 : MonoBehaviour {
 				anim.SetBool ("IsAttack", false);
 				isAttacking = false;
 				_counterAnim = 0;
-
-			
 			}
-
-		
 		}
-
 
 		if (attack) {
 
@@ -101,35 +96,28 @@ public class EnemyAi2 : MonoBehaviour {
 				attack = false;
 				counter = counter2;
 			}
-
 		}
 		if (lastHit) {
 
 			anim.SetBool ("IsLastHit", true);
 			lastHitCounter += Time.deltaTime;
-			if (lastHitCounter >= 3) {
+			if (lastHitCounter >= 3)
+            {
 				treeBody.GetComponent<Renderer> ().materials[1].color = normal;
 				health = _health;
 				lastHitCounter = 0;
 				lastHit = !lastHit;
 				random = Random.Range (1, 3);
-
 			}
 
-		}else anim.SetBool ("IsLastHit", false);
+		}
+        else anim.SetBool ("IsLastHit", false);
 
 		velocity = agent.velocity.magnitude;
 		if (Vector3.Distance (agent.destination, this.transform.position) <= 1.40f) {
 		
 			anim.SetBool ("IsMoving", false);
-
-		
 		}
-
-
-
-	
-
 	}
 	public void GotoPosition(int where){
 	
@@ -144,7 +132,6 @@ public class EnemyAi2 : MonoBehaviour {
 			agent.SetDestination (pointB.position);
 
 		}
-	
 	}
 
     public void FollowPlayer()
@@ -154,7 +141,6 @@ public class EnemyAi2 : MonoBehaviour {
 			transform.LookAt(new Vector3 (player.transform.position.x, transform.position.y , player.transform.position.z));
 			agent.SetDestination (player.transform.position);
 			anim.SetBool ("IsMoving", true);
-		
 		}
 
 
@@ -173,12 +159,9 @@ public class EnemyAi2 : MonoBehaviour {
     }
 	public void AdDamage(int Damage, int color){
 
-
-
 		if ((health >= 0)) {
 
 			health = health - Damage;
-		
 		}
 
 		if ((health <= 10) && (!lastHit)) {
@@ -187,14 +170,11 @@ public class EnemyAi2 : MonoBehaviour {
 
 				treeBody.GetComponent<Renderer> ().materials [1].color = normal;
 
-
 			}
 
 			if (colorManager.colorsUnlock.Count == 1) {
 
 				treeBody.GetComponent<Renderer> ().materials [1].color = colorManager.colors [0];
-
-
 
 			}
 			if (colorManager.colorsUnlock.Count == 2) {
@@ -209,30 +189,24 @@ public class EnemyAi2 : MonoBehaviour {
 
 			}
 
-
-
 			lastHit = !lastHit;
 
-
-		}else if (lastHit ) {
+		}
+        else if (lastHit ) {
 			
-
-			if (colorManager.colorsUnlock.Count == 0) {
+			/*if (colorManager.colorsUnlock.Count == 0) {
 
 				Instantiate (deathParticles[2], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
 				Destroy (this.gameObject);
-
-
 			}
 
 			if (colorManager.colorsUnlock.Count == 1) {
 
-				if (random == 2)
-					Instantiate (deathParticles[1], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
-				if (random == 1)
+				if (random == 2)*/
+					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
+				/*if (random == 1)
 					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
 				Destroy (this.gameObject);
-
 
 			}
 
@@ -241,12 +215,11 @@ public class EnemyAi2 : MonoBehaviour {
 				if (random == 2)
 					Instantiate (deathParticles[1], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
 				if (random == 1)
-					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
+					Instantiate (deathParticles[0], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);*/
 				Destroy (this.gameObject);
 			
-			}
+			//}
 
-		
 		}
 	}
 	public void Attack(){
@@ -260,8 +233,6 @@ public class EnemyAi2 : MonoBehaviour {
 		isAttacking = true;
 		counterAnim = 1.3f;
 
-
-	
 	}
 	public void DamagePlayer(){
 	
