@@ -87,6 +87,14 @@ public class particleCollision : MonoBehaviour {
 
 
 		}
+		if (counter > limit && (other.tag == "Boss")) {
+
+			Debug.Log ("dsadsa");
+
+			other.GetComponent<EnemyAiBoos> ().AdDamage (damage);
+
+
+		}
     }
 
     public void ParticleColor(int color)

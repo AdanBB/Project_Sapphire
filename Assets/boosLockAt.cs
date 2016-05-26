@@ -3,12 +3,18 @@ using System.Collections;
 
 public class boosLockAt : MonoBehaviour {
 
-	private Transform player;
+	public Transform player;
+
+	public laserScript laser;
+
+
+
 
 	// Use this for initialization
 	void Start () {
 	
-		player = GameObject.FindGameObjectWithTag ("Player").transform;
+
+
 
 	}
 	
@@ -18,5 +24,17 @@ public class boosLockAt : MonoBehaviour {
 
 		transform.LookAt (player);
 
+
+
+
+
+
+	}
+	public void Shoot(){
+	
+	
+
+
+	
 	}
 }

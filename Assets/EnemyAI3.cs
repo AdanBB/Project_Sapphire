@@ -42,6 +42,7 @@ public class EnemyAI3 : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		detectionCollider.radius = detectionRange;
 
 		range = agent.stoppingDistance;
