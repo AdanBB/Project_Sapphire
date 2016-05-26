@@ -8,6 +8,8 @@ public class HPPLAYERUI : MonoBehaviour {
     public Slider hpSliderPlayer;
 	// Use this for initialization
 	void Start () {
+
+        hpSliderPlayer.maxValue = hp.maxHealth;
         hpSliderPlayer.value = hp.maxHealth;
 	}
 	
