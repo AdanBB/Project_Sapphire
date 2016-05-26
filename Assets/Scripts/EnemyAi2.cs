@@ -175,7 +175,7 @@ public class EnemyAi2 : MonoBehaviour {
 
 
 
-		if ((!lastHit) && (health >= 10)) {
+		if ((health >= 0)) {
 
 			health = health - Damage;
 		
@@ -187,14 +187,15 @@ public class EnemyAi2 : MonoBehaviour {
 
 				treeBody.GetComponent<Renderer> ().materials [1].color = normal;
 
-				Debug.Log ("me pinto");
+
 			}
 
 			if (colorManager.colorsUnlock.Count == 1) {
 
 				treeBody.GetComponent<Renderer> ().materials [1].color = colorManager.colors [0];
 
-				Debug.Log ("me pinto");
+
+
 			}
 			if (colorManager.colorsUnlock.Count == 2) {
 				if (random == 1) {
@@ -237,7 +238,7 @@ public class EnemyAi2 : MonoBehaviour {
 
 			}
 
-			if (random == color) {
+			if (random == random) {
 			
 				if (random == 2)
 					Instantiate (deathParticles[1], new Vector3 (transform.position.x,transform.position.y + 1, transform.position.z), transform.rotation);
