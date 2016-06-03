@@ -54,6 +54,8 @@ public class PlayerAI : MonoBehaviour
 	private int counterWeapon1;
 	private int counterWeapon2;
 
+    public float paintCharges;
+
 	public playerController PlayerController;
 
 
@@ -67,7 +69,7 @@ public class PlayerAI : MonoBehaviour
 
     void Start()
     {
-		isAiming = false;
+        isAiming = false;
         weaponColor = 1;
         _firetime = fireTime;
 		isAttacking = false;
@@ -186,28 +188,28 @@ public class PlayerAI : MonoBehaviour
         #endregion
 
         #region Shoot Bullet
-        /*
-        if (_firetime >= 0)
-        {
-            _firetime--;
 
-        }
-
-		if (_firetime <= 0 && Input.GetButtonDown("Fire1") && isAiming && (colorManager.colorsUnlock.Count != 0))
+        if (paintCharges > 0)
         {
-            myAnimator.SetBool("IsShooting", true);
-            if (!chorro.GetComponent<ParticleSystem>().isPlaying)
+            if (_firetime >= 0)
             {
-                chorro.GetComponent<ParticleSystem>().Play();
+                _firetime--;
+
             }
-            Fire();
-            _firetime = fireTime;
-        }*/
+
+            if (_firetime <= 0 && Input.GetButton("Fire1") && isAiming && (colorManager.colorsUnlock.Count != 0))
+            {
+                myAnimator.SetBool("IsShooting", true);
+                paintCharges -= 1;
+                Fire();
+                _firetime = fireTime;
+            }
+        }
 
         #endregion
 
         #region Shoot Chorro
-
+        /*
         if (Input.GetButton("Fire1") && isAiming && (colorManager.colorsUnlock.Count != 0))
         {
             if (!chorro.activeInHierarchy)
@@ -223,7 +225,7 @@ public class PlayerAI : MonoBehaviour
         {
             chorro.gameObject.SetActive(false);
         }
-
+        */
         #endregion
 
         #region Aim

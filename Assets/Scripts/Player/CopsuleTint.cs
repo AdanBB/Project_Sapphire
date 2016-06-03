@@ -10,6 +10,12 @@ public class CopsuleTint : MonoBehaviour {
 	public ColorWeapon colorWeapon;
 	public ColorManager colorManager;
 
+    internal PlayerAI player;
+
+    void Awake()
+    {
+        player = GameObject.Find("PlayerAim").GetComponent<PlayerAI>();
+    }
 	// Use this for initialization
 	void Start () {
         myImage = GetComponent<Image>();
@@ -17,14 +23,7 @@ public class CopsuleTint : MonoBehaviour {
 
     void Update()
     {
-        /*if (playerAI.weaponTipe == 0)
-        {
-            //myImage.color = bulletRenderer.sharedMaterial.color;
-        }
-        else
-        {
-            myImage.color = weaponRederer.material.color;
-        }*/
+        transform.localScale = new Vector3(player.paintCharges/10, 1, 1);
         
 		if (colorManager.colorsUnlock.Count > 0) {
 		
@@ -39,10 +38,6 @@ public class CopsuleTint : MonoBehaviour {
 				myImage.color = colorManager.colorsUnlock [1];
 
 			}
-
-		
-		
 		}
-
     }
 }

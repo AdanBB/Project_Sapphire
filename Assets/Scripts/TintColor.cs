@@ -9,7 +9,15 @@ public class TintColor : MonoBehaviour {
 	public int idColor;
 	public ColorManager colorManager;
 
+    internal PlayerAI player;
+
 	public bool isInside;
+
+    void Awake()
+    {
+        player = GameObject.Find("PlayerAim").GetComponent<PlayerAI>();
+
+    }
 	// Use this for initialization
 	void Start () {
 	
@@ -17,16 +25,21 @@ public class TintColor : MonoBehaviour {
 	}
 	void Update(){
 	
-		if (isInside && Input.GetKeyDown (KeyCode.E)) {
-		
-			//Invoke ("colorSet", 0.1f);
-
+		if (isInside && Input.GetKey(KeyCode.E))
+        {
 			if (!colorManager.boolsColors[idColor]) {
 
-				gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
+                player.paintCharges += 10f;
+
+                gameObject.GetComponent<AudioSource> ().PlayOneShot (getColor);
 				colorManager.adColor (idColor);
 			}
-		}
+
+            if (player.paintCharges <= 10)
+            {
+                player.paintCharges += Time.deltaTime * 2;
+            }
+        }
 	}
     void OnTriggerEnter(Collider other)
     {
