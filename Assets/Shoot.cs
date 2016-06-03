@@ -7,6 +7,9 @@ public class Shoot : MonoBehaviour {
 	public GameObject shoot;
 
 	private float counter;
+
+	public float shootRatio;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -18,7 +21,7 @@ public class Shoot : MonoBehaviour {
 	void Update () {
 	
 		counter += Time.deltaTime;
-		if (counter >= 2.5f) {
+		if (counter >= shootRatio) {
 			Instantiate (shoot, transform.position, transform.rotation);
 			counter = 0;
 		}

@@ -13,14 +13,19 @@ public class laserScript : MonoBehaviour {
 
 	public Transform head;
 
+	private float ratioShoot;
+	public Shoot shoot;
+	private float delay;
 	public RaycastHit[] hits;
+
 
 	// Use this for initialization
 	void Start () {
 		laserLine = GetComponentInChildren<LineRenderer> ();
 		laserLine.SetWidth (1f, 1f);
-
+		ratioShoot = shoot.shootRatio;
 		trail.position = startPoint.position;
+		delay = 0.5f;
 	}
 	
 	// Update is called once per frame
@@ -29,11 +34,11 @@ public class laserScript : MonoBehaviour {
 
 		counter += Time.deltaTime;
 
-		if (counter >= 1.7f && Vector3.Distance (startPoint.position, trail.position) <= 20) {
+		if (counter >= (ratioShoot - delay) && Vector3.Distance (startPoint.position, trail.position) <= 20) {
 			trail.Translate (0, 0, 1000* Time.deltaTime);
 		}
-		if (counter >= 2.5f) {
-		
+		if (counter >= ratioShoot) {
+
 			trail.position = startPoint.position;
 			counter = 0;
 		
