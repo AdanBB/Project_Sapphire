@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class MeleeDamageBehaviour : MonoBehaviour {
-    public float damage;
+    /*public float damage;
     public int weaponColor;
     public PlayerAI playerAI;
 
@@ -61,7 +61,7 @@ public class MeleeDamageBehaviour : MonoBehaviour {
                 {
 					other.gameObject.GetComponent<EnemyAi2> ().AdDamage (10);
                 }*/
-				if (other.gameObject.GetComponent<EnemyAi2> () && hit) {
+				/*if (other.gameObject.GetComponent<EnemyAi2> () && hit) {
 					
 					other.gameObject.GetComponent<EnemyAi2> ().AdDamage ((int)damage, weaponColor);
 
@@ -72,7 +72,7 @@ public class MeleeDamageBehaviour : MonoBehaviour {
 
             }
         }
-    }
+    }*/
     /*
     void OnTriggerStay(Collider other)
     { 

@@ -5,49 +5,33 @@ public class paintFontPaint : MonoBehaviour {
 
     public GameObject font;
 
+	private Renderer myRenderer;
+	private FontBehavior fontBehavior;
+	private ParticleSystem myps;
+	private Light myLight;
+
+	void Awake()
+	{
+		myRenderer = gameObject.GetComponent<Renderer> ();
+		fontBehavior = transform.parent.GetComponent<FontBehavior>();
+		myps = GetComponent<ParticleSystem> ();
+		myLight = gameObject.GetComponent<Light> ();
+	}
+
 	// Use this for initialization
 	void Start () {
 
-        if (gameObject.GetComponent<Renderer>() != null)
+		if (myRenderer != null)
         {
-            if (font.GetComponent<TintColor>().idColor == 1)
-            {
-                gameObject.GetComponent<Renderer>().material.color = Color.green;
-            }
-
-            if (font.GetComponent<TintColor>().idColor == 0)
-            {
-                gameObject.GetComponent<Renderer>().material.color = Color.blue;
-            }
+			myRenderer.material.color = fontBehavior._fontColor;
         }
-        if (GetComponent<ParticleSystem>() != null)
+		if (myps != null)
         {
-            if (font.GetComponent<TintColor>().idColor == 1)
-            {
-                gameObject.GetComponent<ParticleSystem>().startColor = Color.green;
-            }
-
-            if (font.GetComponent<TintColor>().idColor == 0)
-            {
-                gameObject.GetComponent<ParticleSystem>().startColor = Color.blue;
-            }
+			myps.startColor = fontBehavior._fontColor;
         }
-        if (GetComponent<Light>() != null)
+		if (myLight != null)
         {
-            if (font.GetComponent<TintColor>().idColor == 1)
-            {
-                gameObject.GetComponent<Light>().color = Color.green;
-            }
-
-            if (font.GetComponent<TintColor>().idColor == 0)
-            {
-                gameObject.GetComponent<Light>().color = Color.blue;
-            }
+			myLight.color = fontBehavior._fontColor;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

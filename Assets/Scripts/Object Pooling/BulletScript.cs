@@ -4,16 +4,22 @@ using System.Collections;
 public class BulletScript : MonoBehaviour {
 
     public float speed;
-    public GameObject player;
-	public GameObject colorManagerGO;
 
-	public Color color1;
-	public Color color2;
+	private PlayerAI _player;
+	private GameObject _colorManager;
+	private Color _bulletColor;
+
 	void Awake(){
 	
-		colorManagerGO = GameObject.FindGameObjectWithTag ("ColorManager");
-		color1 = colorManagerGO.GetComponent<ColorManager> ().colors[0];
-		color2 = colorManagerGO.GetComponent<ColorManager> ().colors[1];
+		_player = GameObject.Find ("PlayerAim").GetComponent<PlayerAI> ();
+
+	}
+
+	void OnEnable()
+	{
+		_bulletColor = _player.selectedColor;
+
+		this.GetComponent<Renderer> ().material.color = _bulletColor;
 
 	}
     void FixedUpdate()
@@ -24,25 +30,7 @@ public class BulletScript : MonoBehaviour {
     }
     private void OnDisable()
     {
-        transform.position = player.transform.position;
+        transform.position = _player.transform.position;
     }
-	public void ColorBullet(int color){
-	
-		if (color == 0) {
-		
-
-			GetComponent<Renderer> ().material.color = color1;
-		
-		
-		}
-		if (color == 1) {
-
-
-			GetComponent<Renderer> ().material.color = color2;
-
-		}
-
-	
-	}
 }
 

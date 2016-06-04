@@ -1,43 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-public class CopsuleTint : MonoBehaviour {
-    public Renderer bulletRenderer;
-    public PlayerAI playerAI;
-    public Renderer weaponRederer;
-    Image myImage;
 
-	public ColorWeapon colorWeapon;
-	public ColorManager colorManager;
+public class CopsuleTint : MonoBehaviour {
+   
+    private PlayerAI _playerAI;
+    private Image _myImage;
 
     internal PlayerAI player;
 
     void Awake()
     {
-        player = GameObject.Find("PlayerAim").GetComponent<PlayerAI>();
+		_playerAI = GameObject.Find("PlayerAim").GetComponent<PlayerAI>();
+		_myImage = GetComponent<Image>();
     }
-	// Use this for initialization
-	void Start () {
-        myImage = GetComponent<Image>();
+
+	void Start()
+	{
+		_myImage.color = new Color (255,255,255, 255);
 	}
 
-    void Update()
-    {
-        transform.localScale = new Vector3(player.paintCharges/10, 1, 1);
-        
-		if (colorManager.colorsUnlock.Count > 0) {
-		
-
-			if (ColorWeapon.currentColor == 0) {
-
-				myImage.color = colorManager.colorsUnlock [0]; 
-
-			}
-			else if (ColorWeapon.currentColor == 1) {
-
-				myImage.color = colorManager.colorsUnlock [1];
-
-			}
+	void Update()
+	{
+		if (this.name == "Fill") 
+		{
+			transform.localScale = new Vector3 (_playerAI.paintCharges / 10, 0.60f , transform.localScale.z);
 		}
-    }
+	}
+
+	public void ChangeColor(Color color)
+	{
+		_myImage.color = color;
+	}
 }
