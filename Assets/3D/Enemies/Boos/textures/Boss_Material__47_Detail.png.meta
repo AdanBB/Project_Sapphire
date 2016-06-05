@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c16bb6ff8c2a3be42bf48b1da595f087
-timeCreated: 1463994346
+guid: 999783a25ad304ad6809f39b9274c44d
+timeCreated: 1465030125
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -46,7 +46,11 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
+<<<<<<< Updated upstream:Assets/splash_01_test.png.meta
   textureType: -1
+=======
+  textureType: 0
+>>>>>>> Stashed changes:Assets/3D/Enemies/Boos/textures/Boss_Material__47_Detail.png.meta
   buildTargetSettings: []
   spriteSheet:
     sprites: []

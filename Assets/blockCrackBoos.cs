@@ -6,13 +6,24 @@ public class blockCrackBoos : MonoBehaviour {
 	public Animator anim;
 
 
-	private int counet;
+	private float counter;
 
-	private bool down = true;
+	public bool down = true;
 	private bool up = false;
+	private bool scale = false;
+
+	public GameObject explosionParticles;
 
 	public Transform A;
 
+	public Renderer[] childs;
+
+	void Awake(){
+
+
+		childs = GetComponentsInChildren<Renderer>();
+
+	}
 
 	void FixedUpdate(){
 
@@ -26,7 +37,8 @@ public class blockCrackBoos : MonoBehaviour {
 		if (transform.position.y <= -60f || up ) {
 			up = true;
 			down = false;
-			transform.Translate(0,0 ,20f* Time.deltaTime) ;
+			transform.position = new Vector3 (transform.position.x ,-0.59f , transform.position.z);
+
 			anim.SetBool ("IsGrow", false);
 
 		}
@@ -40,7 +52,7 @@ public class blockCrackBoos : MonoBehaviour {
 	}
 
 	public void PreDown(){
-
+		//Instantiate (explosionParticles,transform.position,transform.rotation);
 		Invoke ("Down",0.7f);
 
 	}

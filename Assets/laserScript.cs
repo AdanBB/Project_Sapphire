@@ -16,8 +16,9 @@ public class laserScript : MonoBehaviour {
 	private float ratioShoot;
 	public Shoot shoot;
 	private float delay;
-	public RaycastHit[] hits;
 
+
+	public ParticleSystemRay systemRay;
 
 	// Use this for initialization
 	void Start () {
@@ -35,12 +36,15 @@ public class laserScript : MonoBehaviour {
 		counter += Time.deltaTime;
 
 		if (counter >= (ratioShoot - delay) && Vector3.Distance (startPoint.position, trail.position) <= 20) {
+			
 			trail.Translate (0, 0, 1000* Time.deltaTime);
+			systemRay.setActive ();
 		}
 		if (counter >= ratioShoot) {
 
 			trail.position = startPoint.position;
 			counter = 0;
+			systemRay.setDesactive ();
 		
 		}
 			
